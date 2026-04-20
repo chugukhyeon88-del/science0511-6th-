@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>과학의 날 부스 체험 신청 — 순천 왕지초</title>q
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:#f5f5f7;color:#1d1d1f;min-height:100vh}
+.wrap{max-width:740px;margin:0 auto;padding:1rem}
+.header{text-align:center;padding:1.8rem 1rem 1.2rem;margin-bottom:1.5rem;background:#fff;border-radius:16px;border:1px solid #e5e5ea;margin-top:1rem}
+.header h1{font-size:20px;font-weight:600}
+.header p{font-size:13px;color:#6e6e73;margin-top:5px}
+.tabs{display:flex;border:1px solid #d1d1d6;border-radius:10px;overflow:hidden;margin-bottom:1.5rem;background:#fff}
+.tab{flex:1;padding:10px 4px;font-size:12px;font-weight:500;text-align:center;cursor:pointer;background:#fff;color:#6e6e73;border:none;border-right:1px solid #d1d1d6;transition:all .15s}
+.tab:last-child{border-right:none}
+.tab.active{background:#534AB7;color:#fff}
+.page{display:none}.page.active{display:block}
+.card{background:#fff;border-radius:16px;border:1px solid #e5e5ea;padding:1.2rem;margin-bottom:1rem}
+.slabel{font-size:11px;font-weight:600;color:#6e6e73;margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em}
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+input[type=text],input[type=password]{width:100%;padding:10px 14px;font-size:15px;border:1px solid #d1d1d6;border-radius:10px;background:#fff;color:#1d1d1f;transition:border-color .15s}
+input[type=text]:focus,input[type=password]:focus{outline:none;border-color:#534AB7;box-shadow:0 0 0 3px rgba(83,74,183,.12)}
+.hint{font-size:12px;color:#6e6e73;margin-bottom:1rem;line-height:1.6;padding:10px 14px;background:#f5f5f7;border-radius:10px}
+.booths{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.2rem}
+.bc{border:1px solid #e5e5ea;border-radius:14px;padding:12px 14px;cursor:pointer;background:#fff;transition:all .15s;position:relative;user-select:none}
+.bc:hover{border-color:#b0b0b8;background:#fafafa}
+.bc.s1{border:2px solid #534AB7;background:#EEEDFE}
+.bc.s2{border:2px solid #1D9E75;background:#E1F5EE}
+.bc.s3{border:2px solid #D85A30;background:#FAECE7}
+.bc.s4{border:2px solid #BA7517;background:#FAEEDA}
+.pb{position:absolute;top:9px;right:9px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.pb1{background:#534AB7;color:#fff}.pb2{background:#1D9E75;color:#fff}.pb3{background:#D85A30;color:#fff}.pb4{background:#BA7517;color:#fff}
+.bnum{font-size:11px;color:#aeaeb2;margin-bottom:2px}
+.bname{font-size:13px;font-weight:600;color:#1d1d1f;line-height:1.35;margin-bottom:4px;padding-right:28px}
+.bdesc{font-size:11px;color:#6e6e73;line-height:1.4;margin-bottom:7px}
+.cbg{height:3px;background:#f0f0f5;border-radius:2px;margin-bottom:4px}
+.cb{height:3px;border-radius:2px;transition:width .4s}
+.cok{background:#534AB7}.cwarn{background:#BA7517}.cover{background:#E24B4A}
+.ct{font-size:11px;color:#6e6e73;display:flex;justify-content:space-between;align-items:center}
+.bdg{display:inline-block;font-size:10px;padding:1px 7px;border-radius:99px;font-weight:600}
+.bfull{background:#FFE5E5;color:#C0392B}.bover{background:#FFF3E0;color:#8B4513}.bwarn{background:#FFF8E1;color:#7D5A00}
+.pl-leg{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:1rem}
+.pl-i{display:flex;align-items:center;gap:5px;font-size:12px;color:#6e6e73}
+.pl-d{width:13px;height:13px;border-radius:50%;flex-shrink:0}
+.sbtn{width:100%;padding:13px;font-size:15px;font-weight:600;border:none;border-radius:12px;background:#534AB7;color:#fff;cursor:pointer;transition:all .15s}
+.sbtn:hover:not(:disabled){background:#3C3489}
+.sbtn:disabled{opacity:.35;cursor:not-allowed}
+.ssel{margin-bottom:1rem;padding:10px 14px;background:#f5f5f7;border-radius:10px;font-size:13px;color:#6e6e73;min-height:44px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+.chip{padding:4px 10px;border-radius:99px;font-size:12px;font-weight:500}
+.c1{background:#EEEDFE;color:#3C3489}.c2{background:#E1F5EE;color:#085041}.c3{background:#FAECE7;color:#712B13}.c4{background:#FAEEDA;color:#633806}
+.toast{padding:10px 18px;border-radius:12px;font-size:13px;display:none;text-align:center;margin:8px 0;font-weight:500}
+.toast.show{display:block}.tok{background:#E8F5E9;color:#2E7D32;border:1px solid #c3e6cb}.terr{background:#FFE5E5;color:#C0392B;border:1px solid #f5c6cb}
+.rt{width:100%;font-size:12px;border-collapse:collapse;margin-top:8px}
+.rt th{padding:6px 8px;font-weight:600;color:#6e6e73;border-bottom:1px solid #e5e5ea;text-align:left;font-size:11px}
+.rt td{padding:6px 8px;border-bottom:1px solid #f5f5f7;color:#1d1d1f;vertical-align:middle}
+.btn{padding:9px 18px;font-size:13px;font-weight:500;border:1px solid #d1d1d6;border-radius:10px;background:#fff;color:#1d1d1f;cursor:pointer;transition:all .15s}
+.btn:hover{background:#f5f5f7}
+.bp{background:#534AB7;color:#fff;border-color:#534AB7}.bp:hover{background:#3C3489}
+.bd{border-color:#E24B4A;color:#C0392B}.bd:hover{background:#FFE5E5}
+.bs{background:#1D9E75;color:#fff;border-color:#1D9E75}.bs:hover{background:#0F6E56}
+.bw{background:#BA7517;color:#fff;border-color:#BA7517}.bw:hover{background:#854F0B}
+.brow{display:flex;gap:8px;flex-wrap:wrap}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.rc{padding:11px 13px;border:1px solid #e5e5ea;border-radius:12px;background:#fafafa}
+.rcn{font-size:12px;font-weight:600;color:#1d1d1f;margin-bottom:5px}
+.att{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:500;margin:1px 2px}
+.a1{background:#EEEDFE;color:#3C3489}.a2{background:#E1F5EE;color:#085041}.a3{background:#FAECE7;color:#712B13}.a4{background:#FAEEDA;color:#633806}
+.onote{font-size:12px;color:#C0392B;padding:10px 12px;background:#FFE5E5;border-radius:10px;margin-bottom:10px}
+.lrow{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end}
+.lbtn{padding:10px 18px;font-size:13px;font-weight:600;border:none;border-radius:10px;background:#534AB7;color:#fff;cursor:pointer}
+.lbtn:hover{background:#3C3489}
+.scard{border:1px solid #e5e5ea;border-radius:16px;overflow:hidden;margin-top:1rem}
+.shdr{padding:16px 18px;background:#534AB7;color:#fff}
+.shdr h2{font-size:17px;font-weight:600}
+.shdr p{font-size:12px;opacity:.85;margin-top:3px}
+.tslot{display:grid;grid-template-columns:88px 1fr;border-bottom:1px solid #f0f0f5;background:#fff}
+.tslot:last-child{border-bottom:none}
+.tcol{padding:14px 10px;background:#f5f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid #e5e5ea}
+.trnd{font-size:10px;font-weight:600;color:#6e6e73;margin-bottom:2px}
+.tval{font-size:14px;font-weight:600;color:#1d1d1f}
+.tdur{font-size:10px;color:#aeaeb2;margin-top:2px}
+.bcol{padding:14px 16px}
+.bcnum{font-size:11px;color:#aeaeb2;margin-bottom:2px}
+.bcnam{font-size:15px;font-weight:600;color:#1d1d1f;margin-bottom:4px}
+.bcdesc{font-size:12px;color:#6e6e73;line-height:1.4}
+.bctool{font-size:11px;color:#aeaeb2;margin-top:4px}
+.ibox{padding:12px 14px;background:#f5f5f7;border-radius:10px;font-size:13px;color:#6e6e73;margin-top:12px}
+.ebox{padding:12px 14px;background:#FFE5E5;border-radius:10px;font-size:13px;color:#C0392B;margin-top:12px}
+.loverlay{display:none;position:fixed;inset:0;background:rgba(255,255,255,.75);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:12px}
+.loverlay.show{display:flex}
+.spin{width:36px;height:36px;border:3px solid #e5e5ea;border-top-color:#534AB7;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sdot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px;vertical-align:middle}
+.adm-login{max-width:320px;margin:2rem auto}
+.adm-login h2{font-size:16px;font-weight:600;margin-bottom:1rem;text-align:center}
+.pw-row{display:flex;gap:8px;margin-bottom:8px}
+.adm-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:4px 10px;background:#EEEDFE;color:#3C3489;border-radius:99px;margin-bottom:1rem}
+.divider{border:none;border-top:1px solid #e5e5ea;margin:1rem 0}
+.rset{border:1px solid #FFE5E5;border-radius:12px;padding:1rem;background:#FFFAFA}
+.rset-t{font-size:13px;font-weight:600;color:#C0392B;margin-bottom:6px}
+.rset-d{font-size:12px;color:#6e6e73;margin-bottom:12px;line-height:1.5}
+.gsec{border:1px solid #c3e6cb;border-radius:12px;padding:1rem;background:#f8fff8;margin-bottom:1rem}
+.gsec-t{font-size:13px;font-weight:600;color:#2E7D32;margin-bottom:6px}
+.gsec-d{font-size:12px;color:#6e6e73;margin-bottom:12px;line-height:1.5}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem}
+.scard2{background:#f5f5f7;border-radius:10px;padding:10px;text-align:center}
+.snum{font-size:22px;font-weight:600;color:#534AB7}
+.slbl{font-size:11px;color:#6e6e73;margin-top:2px}
+/* 회차별 색상 강조 */
+.slot-color-0{border-left:3px solid #534AB7}
+.slot-color-1{border-left:3px solid #1D9E75}
+.slot-color-2{border-left:3px solid #D85A30}
+.slot-color-3{border-left:3px solid #BA7517}
+@media(max-width:500px){.booths{grid-template-columns:1fr}.input-row{grid-template-columns:1fr}.rg{grid-template-columns:1fr}.lrow{grid-template-columns:1fr 1fr}.lbtn{grid-column:span 2}.sgrid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="loverlay" id="loverlay">
+  <div class="spin"></div>
+  <p id="ltxt" style="font-size:13px;color:#6e6e73">잠시만 기다려주세요...</p>
+</div>
+<div class="wrap">
+  <div class="header">
+    <h1>🔬 과학의 날 부스 체험 신청</h1>
+    <p>순천 왕지초 6학년 &nbsp;·&nbsp; 2026년 5월 11일(월) &nbsp;·&nbsp; 09:00~11:00</p>
+    <p style="margin-top:4px;font-size:12px;color:#534AB7;font-weight:500">✦ 4개 부스를 순서대로 체험합니다 (회당 20분)</p>
+    <p style="margin-top:6px;font-size:12px" id="connSt"><span class="sdot" style="background:#d1d1d6"></span>연결 중...</p>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('apply')">신청하기</button>
+    <button class="tab" onclick="switchTab('myschedule')">내 일정 확인</button>
+    <button class="tab" onclick="switchTab('status')">신청 현황</button>
+    <button class="tab" onclick="switchTab('admin')">관리자</button>
+  </div>
+
+  <!-- 신청하기 -->
+  <div id="page-apply" class="page active">
+    <div class="card">
+      <div class="slabel">신청자 정보</div>
+      <div class="input-row">
+        <input type="text" id="classInput" placeholder="반 (숫자만 입력(4반: 4))" maxlength="10">
+        <input type="text" id="nameInput" placeholder="이름" maxlength="10">
+      </div>
+      <div class="hint">
+        체험하고 싶은 부스를 <strong>우선순위 순서대로 최대 4개</strong> 선택하세요.<br>
+        선택하지 않은 슬롯은 남은 부스 중 <strong>랜덤으로 자동 배정</strong>됩니다.<br>
+        4개 부스는 모두 <strong>서로 다른 부스</strong>로 배정됩니다.
+      </div>
+      <div class="pl-leg">
+        <div class="pl-i"><div class="pl-d" style="background:#534AB7"></div>1순위</div>
+        <div class="pl-i"><div class="pl-d" style="background:#1D9E75"></div>2순위</div>
+        <div class="pl-i"><div class="pl-d" style="background:#D85A30"></div>3순위</div>
+        <div class="pl-i"><div class="pl-d" style="background:#BA7517"></div>4순위</div>
+      </div>
+      <div class="booths" id="boothGrid"></div>
+      <div class="ssel" id="selSum"><span style="color:#aeaeb2">선택한 부스가 없습니다 (선택 안 해도 신청 가능)</span></div>
+      <div class="toast" id="toast"></div>
+      <button class="sbtn" id="submitBtn" disabled onclick="submitReg()">신청하기</button>
+    </div>
+  </div>
+
+  <!-- 내 일정 확인 -->
+  <div id="page-myschedule" class="page">
+    <div class="card">
+      <div class="slabel">내 체험 일정 조회</div>
+      <div class="lrow">
+        <input type="text" id="lookupClass" placeholder="반 (예: 4반인 경우 '4'만 입력)" maxlength="10">
+        <input type="text" id="lookupName" placeholder="이름" maxlength="10">
+        <button class="lbtn" onclick="lookupSched()">확인</button>
+      </div>
+    </div>
+    <div id="schedResult"></div>
+  </div>
+
+  <!-- 신청 현황 -->
+  <div id="page-status" class="page">
+    <div id="statusContent"><div class="card"><p style="font-size:13px;color:#6e6e73">불러오는 중...</p></div></div>
+  </div>
+
+  <!-- 관리자 -->
+  <div id="page-admin" class="page">
+    <div id="adminLoginArea">
+      <div class="card adm-login">
+        <h2>🔐 관리자 로그인</h2>
+        <div class="pw-row">
+          <input type="password" id="adminPw" placeholder="비밀번호 입력" maxlength="20" onkeydown="if(event.key==='Enter')adminLogin()">
+          <button class="btn bp" onclick="adminLogin()">확인</button>
+        </div>
+        <div id="adminErr" style="font-size:12px;color:#C0392B;display:none;text-align:center">비밀번호가 올바르지 않아요.</div>
+      </div>
+    </div>
+    <div id="adminPanel" style="display:none">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+          <span class="adm-badge">🔓 관리자 모드</span>
+          <button class="btn" onclick="adminLogout()" style="font-size:12px;padding:6px 12px">로그아웃</button>
+        </div>
+        <div class="sgrid" id="adminStats"></div>
+        <hr class="divider">
+        <div class="slabel">배정 관리</div>
+        <p style="font-size:12px;color:#6e6e73;margin-bottom:6px;line-height:1.6">
+          신청 마감 후 실행하세요.<br>
+          각 학생에게 <strong>서로 다른 4개 부스</strong>를 배정합니다.<br>
+          우선순위 → 초과 시 랜덤 → 부족 슬롯은 남은 부스로 자동 채움.
+        </p>
+        <div class="brow" style="margin-bottom:1rem">
+          <button class="btn bp" onclick="runAssign()">배정 실행</button>
+          <button class="btn" onclick="clearAssign()">배정 초기화</button>
+        </div>
+        <div id="assignResult"></div>
+        <hr class="divider">
+        <div class="gsec">
+          <div class="gsec-t">📊 데이터 내보내기</div>
+          <div class="gsec-d">CSV 파일로 다운로드 후 구글 시트에서 열기로 불러오세요.</div>
+          <div class="brow">
+            <button class="btn bs" onclick="dlCSV()">⬇ 신청목록 CSV</button>
+            <button class="btn bs" onclick="dlCSVAssigned()">⬇ 배정결과 CSV</button>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="rset">
+          <div class="rset-t">⚠️ 데이터 초기화 (테스트용)</div>
+          <div class="rset-d">테스트 완료 후 실제 운영 전에 사용하세요. 삭제된 데이터는 복구할 수 없습니다.</div>
+          <div class="brow">
+            <button class="btn bw" onclick="clearAssign()">배정만 초기화</button>
+            <button class="btn bd" onclick="clearAll()">전체 데이터 삭제</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import{getFirestore,doc,setDoc,getDoc,deleteDoc,onSnapshot,writeBatch,collection}from"https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+const cfg={apiKey:"AIzaSyD6UC4IEfMF8QvSOGKj5OuV7PUCpgj1HIk",authDomain:"science-project-79f5d.firebaseapp.com",projectId:"science-project-79f5d",storageBucket:"science-project-79f5d.firebasestorage.app",messagingSenderId:"116477805962",appId:"1:116477805962:web:defa40edb474e57bc9b473"};
+const db=getFirestore(initializeApp(cfg));
+const PW="0504";
+
+const BOOTHS=[
+  {id:1,name:"새로운 미래 세상",desc:"홀로렌즈·VR로 미래 기술 체험",tool:"오큘러스",max:14},
+  {id:2,name:"데이터 분석 로봇!",desc:"AI 모델로 이상기후 분류 프로그래밍",tool:"티처블머신·핑퐁",max:14},
+  {id:3,name:"스마트 시티 디자인",desc:"전자모듈보드로 환경 관리 시스템 설계",tool:"할로코드",max:14},
+  {id:4,name:"우주 탐사 로봇 제작",desc:"AI 탐사 로봇 제작 및 미션 해결",tool:"엠봇2",max:14},
+  {id:5,name:"메이킹 프로젝트",desc:"문제해결 로봇 제작 및 프로그래밍",tool:"레고스파이크 프라임",max:14},
+  {id:6,name:"프롬프트 엔지니어 (컵 만들기)",desc:"생성형 AI 이미지 메이킹·컵 제작 체험",tool:"생성형 AI",max:13},
+  {id:7,name:"드론 프로젝트",desc:"멸종위기 동물 구하는 드론 루트 미션",tool:"드론·장애물",max:14},
+  {id:8,name:"로봇 슈터 챔피언십",desc:"안성형 로봇 대항 경기 — 협업·전략",tool:"벡스",max:14},
+  {id:9,name:"AI 자율주행 모빌리티",desc:"미래 스마트카 기능 설계 체험",tool:"알티노",max:14},
+  {id:10,name:"바다 빛 키링 (키링 만들기)",desc:"씨글라스 활용 키링 제작 체험",tool:"씨글라스",max:13}
+];
+
+const TS=[
+  {round:1,start:"09:00",end:"09:20"},
+  {round:2,start:"09:30",end:"09:50"},
+  {round:3,start:"10:00",end:"10:20"},
+  {round:4,start:"10:30",end:"10:50"}
+];
+const ACC=['#534AB7','#1D9E75','#D85A30','#BA7517'];
+
+let regs={},sel=[],curTab='apply',isAdmin=false;
+
+const sl=m=>{document.getElementById('ltxt').textContent=m||'처리 중...';document.getElementById('loverlay').classList.add('show')};
+const hl=()=>document.getElementById('loverlay').classList.remove('show');
+
+// 실시간 리스너
+onSnapshot(collection(db,'registrations'),snap=>{
+  regs={};
+  snap.forEach(d=>{regs[d.id]=d.data()});
+  document.getElementById('connSt').innerHTML='<span class="sdot" style="background:#34C759"></span>실시간 연결됨';
+  renderBooths();
+  if(curTab==='status') renderStatus();
+  if(curTab==='admin'&&isAdmin){renderStats();renderAssign()}
+},()=>{
+  document.getElementById('connSt').innerHTML='<span class="sdot" style="background:#FF3B30"></span>연결 오류 — 새로고침 해주세요'
+});
+
+const shuffle=a=>[...a].sort(()=>Math.random()-.5);
+
+// ────────────────────────────────────────
+// 핵심 배정 알고리즘
+// 각 학생에게 서로 다른 4개 부스를 배정
+// 우선순위 → 초과 시 다음 순위 → 나머지 랜덤
+// 각 부스는 회차당 정원(max) 이하로 제한
+// ────────────────────────────────────────
+function buildAssignment(regEntries) {
+  // 부스별 회차 슬롯 카운터 [회차0,회차1,회차2,회차3]
+  // 각 회차당 부스 정원 = Math.ceil(부스정원 / 4) * 여유 (넉넉하게 관리)
+  const slotCap = {}; // slotCap[boothId][round] = 남은 자리
+  BOOTHS.forEach(b=>{
+    slotCap[b.id] = [0,1,2,3].map(()=> Math.ceil(b.max / 4) + 1);
+  });
+
+  // 학생별 결과: result[key] = [boothId, boothId, boothId, boothId]
+  const result = {};
+  const keys = regEntries.map(([k])=>k);
+  keys.forEach(k=>{ result[k] = [null,null,null,null]; });
+
+  // 1단계: 우선순위 기반으로 최대한 배정 (셔플 순서로 공정하게)
+  const shuffled = shuffle(regEntries);
+
+  for(let priority=0; priority<4; priority++){
+    shuffled.forEach(([k,r])=>{
+      const boothId = r.priorities?.[priority];
+      if(!boothId) return;
+      const already = result[k].filter(Boolean);
+      if(already.includes(boothId)) return; // 이미 이 부스 배정됨
+      if(already.length >= 4) return; // 이미 4개 다 찼음
+
+      // 빈 슬롯 찾기 (아직 배정 안 된 회차)
+      const emptySlots = [0,1,2,3].filter(i=>result[k][i]===null);
+      if(!emptySlots.length) return;
+
+      // 이 부스의 빈 회차 슬롯 중 자리 있는 것 찾기
+      const available = shuffle(emptySlots).filter(i=>slotCap[boothId][i]>0);
+      if(!available.length) return;
+
+      const slot = available[0];
+      result[k][slot] = boothId;
+      slotCap[boothId][slot]--;
+    });
+  }
+
+  // 2단계: 아직 4개 미만인 학생에게 남은 부스를 랜덤으로 채움
+  // 여러 번 반복하여 최대한 채움
+  for(let pass=0; pass<5; pass++){
+    shuffle(keys).forEach(k=>{
+      const emptySlots = [0,1,2,3].filter(i=>result[k][i]===null);
+      if(!emptySlots.length) return;
+
+      const usedBooths = result[k].filter(Boolean);
+      // 아직 배정 안 된 부스 목록
+      const remainingBooths = shuffle(BOOTHS.map(b=>b.id).filter(id=>!usedBooths.includes(id)));
+
+      for(const boothId of remainingBooths){
+        if(!emptySlots.length) break;
+        const availSlots = shuffle(emptySlots.filter(i=>slotCap[boothId][i]>0));
+        if(!availSlots.length) continue;
+
+        const slot = availSlots[0];
+        result[k][slot] = boothId;
+        slotCap[boothId][slot]--;
+        emptySlots.splice(emptySlots.indexOf(slot),1);
+      }
+    });
+  }
+
+  // 3단계: 그래도 못 채운 슬롯은 정원 무시하고 강제 배정 (학생 경험 보장)
+  shuffle(keys).forEach(k=>{
+    const emptySlots = [0,1,2,3].filter(i=>result[k][i]===null);
+    if(!emptySlots.length) return;
+    const usedBooths = result[k].filter(Boolean);
+    const remaining = shuffle(BOOTHS.map(b=>b.id).filter(id=>!usedBooths.includes(id)));
+    emptySlots.forEach((slot,idx)=>{
+      if(remaining[idx]) result[k][slot] = remaining[idx];
+    });
+  });
+
+  return result;
+}
+
+function getApp(id){return Object.values(regs).filter(r=>r.priorities&&r.priorities.includes(id))}
+
+function renderBooths(){
+  const g=document.getElementById('boothGrid');
+  if(!g) return;
+  g.innerHTML='';
+  BOOTHS.forEach(b=>{
+    const cnt=getApp(b.id).length,pct=Math.min(cnt/b.max,1),si=sel.indexOf(b.id),isOver=cnt>b.max;
+    const barC=isOver?'cb cover':pct>=.7?'cb cwarn':'cb cok';
+    const bdg=isOver?`<span class="bdg bover">인기 많음</span>`:pct>=.7?`<span class="bdg bwarn">인기 많음</span>`:'';
+    const pb=si>=0?`<div class="pb pb${si+1}">${si+1}</div>`:'';
+    const sc=si>=0?` s${si+1}`:'';
+    const c=document.createElement('div');
+    c.className=`bc${sc}`;
+    c.innerHTML=`${pb}<div class="bnum">부스 ${b.id}</div><div class="bname">${b.name}</div><div class="bdesc">${b.desc}</div><div class="cbg"><div class="${barC}" style="width:${pct*100}%"></div></div><div class="ct">${bdg}<span>${cnt}명 신청중</span></div>`;
+    c.onclick=()=>togBooth(b.id);
+    g.appendChild(c);
+  });
+}
+
+function togBooth(id){
+  const i=sel.indexOf(id);
+  if(i>=0) sel.splice(i,1);
+  else{
+    if(sel.length>=4){toast('최대 4개까지 선택할 수 있어요.',true);return}
+    sel.push(id);
+  }
+  renderBooths();renderSel();chkSub();
+}
+
+function renderSel(){
+  const e=document.getElementById('selSum');
+  if(!sel.length){e.innerHTML='<span style="color:#aeaeb2">선택한 부스가 없습니다 (선택 안 해도 신청 가능)</span>';return}
+  const lbl=['1순위','2순위','3순위','4순위'],cls=['c1','c2','c3','c4'];
+  const chips=sel.map((id,i)=>`<span class="chip ${cls[i]}">${lbl[i]} ${BOOTHS.find(b=>b.id===id).name}</span>`).join('');
+  e.innerHTML=`<div style="font-size:11px;color:#6e6e73;margin-bottom:5px">선택한 부스 (클릭하면 해제)</div><div class="chips">${chips}</div>`;
+}
+
+function chkSub(){
+  const c=document.getElementById('classInput').value.trim();
+  const n=document.getElementById('nameInput').value.trim();
+  document.getElementById('submitBtn').disabled=!(c&&n);
+}
+
+document.getElementById('classInput').addEventListener('input',chkSub);
+document.getElementById('nameInput').addEventListener('input',chkSub);
+
+function toast(msg,err){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast show '+(err?'terr':'tok');
+  setTimeout(()=>{t.className='toast'},3000);
+}
+
+window.adminLogin=function(){
+  const pw=document.getElementById('adminPw').value,e=document.getElementById('adminErr');
+  if(pw===PW){
+    isAdmin=true;
+    document.getElementById('adminLoginArea').style.display='none';
+    document.getElementById('adminPanel').style.display='block';
+    e.style.display='none';
+    renderStats();renderAssign();
+  }else{e.style.display='block';document.getElementById('adminPw').value=''}
+};
+
+window.adminLogout=function(){
+  isAdmin=false;
+  document.getElementById('adminLoginArea').style.display='block';
+  document.getElementById('adminPanel').style.display='none';
+  document.getElementById('adminPw').value='';
+};
+
+function renderStats(){
+  const e=document.getElementById('adminStats');
+  if(!e) return;
+  const arr=Object.values(regs),tot=arr.length,asgn=arr.filter(r=>r.scheduleSlots&&r.scheduleSlots.every(s=>s!=null)).length;
+  e.innerHTML=`<div class="scard2"><div class="snum">${tot}</div><div class="slbl">총 신청자</div></div><div class="scard2"><div class="snum" style="color:#1D9E75">${asgn}</div><div class="slbl">배정 완료</div></div><div class="scard2"><div class="snum" style="color:#BA7517">${tot-asgn}</div><div class="slbl">미배정</div></div>`;
+}
+
+window.submitReg=async function(){
+  const c=document.getElementById('classInput').value.trim(),n=document.getElementById('nameInput').value.trim();
+  if(!c||!n) return;
+  const id=`${c}_${n}`.replace(/\s+/g,'_');
+  sl('신청 중...');
+  try{
+    const ex=await getDoc(doc(db,'registrations',id));
+    if(ex.exists()){hl();toast('이미 신청되어 있어요!',true);return}
+    await setDoc(doc(db,'registrations',id),{
+      class:c,name:n,
+      priorities:[...sel],
+      time:new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}),
+      timestamp:Date.now(),
+      scheduleSlots:null
+    });
+    hl();
+    toast(`${c} ${n}님 신청 완료! (우선순위 ${sel.length}개 선택됨)`);
+    document.getElementById('classInput').value='';
+    document.getElementById('nameInput').value='';
+    sel=[];
+    renderBooths();renderSel();chkSub();
+  }catch(e){hl();toast('오류가 발생했어요.',true)}
+};
+
+window.lookupSched=async function(){
+  const c=document.getElementById('lookupClass').value.trim(),n=document.getElementById('lookupName').value.trim(),el=document.getElementById('schedResult');
+  if(!c||!n){el.innerHTML='<div class="ebox">반 번호와 이름을 모두 입력해주세요.</div>';return}
+  sl('조회 중...');
+  try{
+    const id=`${c}_${n}`.replace(/\s+/g,'_'),snap=await getDoc(doc(db,'registrations',id));
+    hl();
+    if(!snap.exists()){el.innerHTML='<div class="ebox">신청 내역을 찾을 수 없어요.<br>반 번호와 이름을 다시 확인해주세요.</div>';return}
+    const reg=snap.data();
+    if(!reg.scheduleSlots||reg.scheduleSlots.every(s=>s===null)){
+      const chips=(reg.priorities||[]).map((id2,i)=>{
+        const cls2=['c1','c2','c3','c4'],l2=['1순위','2순위','3순위','4순위'];
+        return`<span class="chip ${cls2[i]}" style="font-size:11px">${l2[i]} ${BOOTHS.find(b=>b.id===id2)?.name||id2}</span>`;
+      }).join('');
+      const nosel=!reg.priorities?.length?'<p style="font-size:12px;color:#6e6e73;margin-top:6px">우선순위 미선택 — 랜덤으로 배정됩니다.</p>':'';
+      el.innerHTML=`<div class="scard"><div class="shdr"><h2>${reg.class} ${reg.name}님</h2><p>신청 시각 ${reg.time} · 배정 대기 중</p></div><div style="padding:16px">${chips?`<p style="font-size:12px;color:#6e6e73;margin-bottom:8px">선택한 우선순위</p><div class="chips">${chips}</div>`:''}${nosel}<div class="ibox" style="margin-top:12px">아직 배정이 완료되지 않았어요.<br>선생님이 배정을 실행하면 4개 부스의 체험 순서를 확인할 수 있어요.</div></div></div>`;
+      return;
+    }
+    const slots=reg.scheduleSlots;
+    const rows=TS.map((ts,i)=>{
+      const bid=slots[i];
+      if(!bid) return`<div class="tslot"><div class="tcol"><div class="trnd">${ts.round}회차</div><div class="tval">${ts.start}</div><div class="tdur">~${ts.end}</div></div><div style="padding:14px 16px;background:#fafafa"><p style="font-size:13px;color:#aeaeb2">미배정</p></div></div>`;
+      const b=BOOTHS.find(x=>x.id===bid);
+      return`<div class="tslot"><div class="tcol slot-color-${i}"><div class="trnd">${ts.round}회차</div><div class="tval">${ts.start}</div><div class="tdur">~${ts.end}</div></div><div class="bcol"><div class="bcnum">부스 ${b.id}</div><div class="bcnam">${b.name}</div><div class="bcdesc">${b.desc}</div><div class="bctool">${b.tool}</div></div></div>`;
+    }).join('');
+    el.innerHTML=`<div class="scard"><div class="shdr"><h2>${reg.class} ${reg.name}님의 체험 일정</h2><p>4개 부스 체험 순서 확정</p></div><div>${rows}</div></div>`;
+  }catch(e){hl();document.getElementById('schedResult').innerHTML='<div class="ebox">오류가 발생했어요.</div>'}
+};
+
+function renderStatus(){
+  const el=document.getElementById('statusContent'),arr=Object.values(regs);
+  if(!arr.length){el.innerHTML='<div class="card"><p style="font-size:13px;color:#6e6e73">아직 신청 내역이 없습니다.</p></div>';return}
+  const bR=BOOTHS.map(b=>{
+    const cnt=getApp(b.id).length,pct=cnt/b.max;
+    const bc=pct>=1?'bfull':pct>=.7?'bwarn':'';
+    const lbl=pct>=1?'정원':pct>=.7?'인기':'여유';
+    return`<tr><td style="color:#aeaeb2">부스 ${b.id}</td><td>${b.name}</td><td>${cnt}명 신청</td><td><span class="bdg ${bc}">${lbl}</span></td></tr>`;
+  }).join('');
+  const srt=[...arr].sort((a,b)=>a.timestamp-b.timestamp);
+  const rR=srt.map(r=>{
+    const chips=(r.priorities||[]).map((id,pi)=>{
+      const c=['a1','a2','a3','a4'],l=['1순','2순','3순','4순'];
+      return`<span class="att ${c[pi]}">${l[pi]} ${BOOTHS.find(b=>b.id===id)?.name||id}</span>`;
+    }).join('');
+    const done=r.scheduleSlots&&r.scheduleSlots.filter(Boolean).length===4;
+    const status=done?`<span class="att a1">배정완료</span>`:`<span style="font-size:11px;color:#aeaeb2">대기중</span>`;
+    return`<tr><td>${r.class} ${r.name}</td><td style="line-height:2">${chips||'<span style="color:#aeaeb2;font-size:11px">랜덤배정</span>'}</td><td>${status}</td></tr>`;
+  }).join('');
+  el.innerHTML=`<div class="card"><p style="font-size:13px;font-weight:600;margin-bottom:8px">부스별 신청 현황</p><table class="rt"><thead><tr><th></th><th>부스명</th><th>신청 인원</th><th>상태</th></tr></thead><tbody>${bR}</tbody></table></div><div class="card"><p style="font-size:13px;font-weight:600;margin-bottom:8px">전체 신청자 (${arr.length}명)</p><table class="rt"><thead><tr><th>이름</th><th>우선순위</th><th>배정</th></tr></thead><tbody>${rR}</tbody></table></div>`;
+}
+
+window.runAssign=async function(){
+  const entries=Object.entries(regs);
+  if(!entries.length){alert('신청자가 없습니다.');return}
+  if(!confirm(`${entries.length}명을 대상으로 4부스 배정을 실행할까요?`)) return;
+  sl('배정 중... (잠시 기다려주세요)');
+  try{
+    const result=buildAssignment(entries);
+    const batch=writeBatch(db);
+    entries.forEach(([k])=>{
+      batch.update(doc(db,'registrations',k),{scheduleSlots:result[k]});
+    });
+    await batch.commit();
+    hl();renderStats();renderAssign();
+    const unfinished=entries.filter(([k])=>result[k].some(s=>s===null)).length;
+    alert(unfinished>0?`배정 완료!\n⚠️ ${unfinished}명은 일부 슬롯을 채우지 못했어요 (부스 수 부족).`:'배정이 완료됐습니다! 모든 학생에게 4개 부스가 배정됐어요.');
+  }catch(e){hl();alert('오류: '+e.message)}
+};
+
+window.clearAssign=async function(){
+  if(!confirm('배정 결과를 초기화할까요?')) return;
+  sl('초기화 중...');
+  try{
+    const batch=writeBatch(db);
+    Object.keys(regs).forEach(k=>{batch.update(doc(db,'registrations',k),{scheduleSlots:null})});
+    await batch.commit();hl();renderStats();renderAssign();
+  }catch(e){hl();alert('오류: '+e.message)}
+};
+
+window.clearAll=async function(){
+  const inp=prompt('"삭제확인" 을 입력하면 전체 데이터가 삭제됩니다:');
+  if(inp!=='삭제확인'){alert('취소됐습니다.');return}
+  sl('전체 삭제 중...');
+  try{
+    const batch=writeBatch(db);
+    Object.keys(regs).forEach(k=>{batch.delete(doc(db,'registrations',k))});
+    await batch.commit();
+    sel=[];renderBooths();renderSel();chkSub();
+    hl();renderStats();renderAssign();
+    alert('전체 데이터가 삭제됐습니다.');
+  }catch(e){hl();alert('오류: '+e.message)}
+};
+
+function makeCSV(data,filename){
+  const BOM='\uFEFF',csv=BOM+data.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);
+}
+
+window.dlCSV=function(){
+  const arr=Object.values(regs).sort((a,b)=>a.timestamp-b.timestamp);
+  if(!arr.length){alert('신청 데이터가 없어요.');return}
+  const hdr=['반','이름','신청시각','1순위','2순위','3순위','4순위'];
+  const rows=arr.map(r=>{
+    const ps=(r.priorities||[]).map(id=>BOOTHS.find(b=>b.id===id)?.name||'');
+    while(ps.length<4)ps.push('');
+    return[r.class,r.name,r.time,...ps];
+  });
+  makeCSV([hdr,...rows],'과학의날_신청목록.csv');
+};
+
+window.dlCSVAssigned=function(){
+  const arr=Object.values(regs).filter(r=>r.scheduleSlots).sort((a,b)=>a.class.localeCompare(b.class));
+  if(!arr.length){alert('배정된 데이터가 없어요. 먼저 배정을 실행해주세요.');return}
+  const hdr=['반','이름','1회차 09:00~09:20','2회차 09:30~09:50','3회차 10:00~10:20','4회차 10:30~10:50'];
+  const rows=arr.map(r=>{
+    const slots=(r.scheduleSlots||[null,null,null,null]).map(id=>id?`부스${id} ${BOOTHS.find(b=>b.id===id)?.name||''}` : '미배정');
+    return[r.class,r.name,...slots];
+  });
+  makeCSV([hdr,...rows],'과학의날_배정결과.csv');
+};
+
+function renderAssign(){
+  const el=document.getElementById('assignResult');
+  if(!el) return;
+  const arr=Object.values(regs);
+  const done=arr.filter(r=>r.scheduleSlots&&r.scheduleSlots.filter(Boolean).length===4);
+  if(!done.length){el.innerHTML='<p style="font-size:13px;color:#6e6e73">배정 실행 전입니다.</p>';return}
+
+  // 회차별로 각 부스에 몇 명이 배정됐는지 표시
+  const roundSummary=TS.map((ts,ri)=>{
+    const boothCounts=BOOTHS.map(b=>{
+      const cnt=arr.filter(r=>r.scheduleSlots?.[ri]===b.id).length;
+      if(!cnt) return'';
+      return`<span class="att a1">부스${b.id} ${cnt}명</span>`;
+    }).filter(Boolean).join(' ');
+    return`<div style="margin-bottom:8px"><span style="font-size:11px;font-weight:600;color:#6e6e73">${ts.round}회차 ${ts.start}~${ts.end}</span><div style="margin-top:4px;line-height:2">${boothCounts||'<span style="font-size:11px;color:#aeaeb2">없음</span>'}</div></div>`;
+  }).join('');
+
+  const incomplete=arr.filter(r=>!r.scheduleSlots||r.scheduleSlots.some(s=>!s));
+  const oh=incomplete.length?`<div class="onote">⚠️ 일부 슬롯 미배정 학생 ${incomplete.length}명: ${incomplete.map(r=>`${r.class} ${r.name}`).join(', ')}</div>`:'';
+
+  el.innerHTML=`${oh}<div style="font-size:13px;font-weight:600;margin-bottom:10px;color:#1d1d1f">회차별 배정 현황 (배정완료 ${done.length}명)</div>${roundSummary}`;
+}
+
+window.switchTab=function(t){
+  curTab=t;
+  const tabs=['apply','myschedule','status','admin'];
+  document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.tab')[tabs.indexOf(t)].classList.add('active');
+  document.getElementById('page-'+t).classList.add('active');
+  if(t==='status') renderStatus();
+  if(t==='admin'&&isAdmin){renderStats();renderAssign()}
+};
+
+renderBooths();
+</script>
+</body>
+</html>
