@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>과학의 날 부스 체험 신청 — 순천 왕지초</title>q
+<title>과학의 날 부스 체험 신청 — 6학년 순천 왕지초</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:#f5f5f7;color:#1d1d1f;min-height:100vh}
@@ -11,16 +11,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .header{text-align:center;padding:1.8rem 1rem 1.2rem;margin-bottom:1.5rem;background:#fff;border-radius:16px;border:1px solid #e5e5ea;margin-top:1rem}
 .header h1{font-size:20px;font-weight:600}
 .header p{font-size:13px;color:#6e6e73;margin-top:5px}
+.grade-badge{display:inline-block;margin-top:8px;padding:4px 16px;border-radius:99px;font-size:13px;font-weight:600}
+.grade-5{background:#EEEDFE;color:#3C3489}
+.grade-6{background:#E1F5EE;color:#085041}
 .tabs{display:flex;border:1px solid #d1d1d6;border-radius:10px;overflow:hidden;margin-bottom:1.5rem;background:#fff}
 .tab{flex:1;padding:10px 4px;font-size:12px;font-weight:500;text-align:center;cursor:pointer;background:#fff;color:#6e6e73;border:none;border-right:1px solid #d1d1d6;transition:all .15s}
 .tab:last-child{border-right:none}
-.tab.active{background:#534AB7;color:#fff}
+.tab.active{color:#fff}
 .page{display:none}.page.active{display:block}
 .card{background:#fff;border-radius:16px;border:1px solid #e5e5ea;padding:1.2rem;margin-bottom:1rem}
 .slabel{font-size:11px;font-weight:600;color:#6e6e73;margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em}
-.input-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
-input[type=text],input[type=password]{width:100%;padding:10px 14px;font-size:15px;border:1px solid #d1d1d6;border-radius:10px;background:#fff;color:#1d1d1f;transition:border-color .15s}
-input[type=text]:focus,input[type=password]:focus{outline:none;border-color:#534AB7;box-shadow:0 0 0 3px rgba(83,74,183,.12)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr 1fr 2fr;gap:8px;margin-bottom:1rem}
+.info-grid-label{font-size:11px;color:#6e6e73;margin-bottom:4px;font-weight:500}
+input[type=text],input[type=password],select{width:100%;padding:10px 12px;font-size:14px;border:1px solid #d1d1d6;border-radius:10px;background:#fff;color:#1d1d1f;transition:border-color .15s;-webkit-appearance:none;appearance:none}
+input[type=text]:focus,input[type=password]:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.preview-box{background:#f5f5f7;border-radius:10px;padding:10px 14px;font-size:13px;color:#6e6e73;margin-bottom:1rem;min-height:38px;display:flex;align-items:center;gap:6px}
+.preview-box strong{color:#1d1d1f;font-weight:600}
 .hint{font-size:12px;color:#6e6e73;margin-bottom:1rem;line-height:1.6;padding:10px 14px;background:#f5f5f7;border-radius:10px}
 .booths{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.2rem}
 .bc{border:1px solid #e5e5ea;border-radius:14px;padding:12px 14px;cursor:pointer;background:#fff;transition:all .15s;position:relative;user-select:none}
@@ -39,12 +45,12 @@ input[type=text]:focus,input[type=password]:focus{outline:none;border-color:#534
 .cok{background:#534AB7}.cwarn{background:#BA7517}.cover{background:#E24B4A}
 .ct{font-size:11px;color:#6e6e73;display:flex;justify-content:space-between;align-items:center}
 .bdg{display:inline-block;font-size:10px;padding:1px 7px;border-radius:99px;font-weight:600}
-.bfull{background:#FFE5E5;color:#C0392B}.bover{background:#FFF3E0;color:#8B4513}.bwarn{background:#FFF8E1;color:#7D5A00}
+.bwarn{background:#FFF8E1;color:#7D5A00}
 .pl-leg{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:1rem}
 .pl-i{display:flex;align-items:center;gap:5px;font-size:12px;color:#6e6e73}
 .pl-d{width:13px;height:13px;border-radius:50%;flex-shrink:0}
-.sbtn{width:100%;padding:13px;font-size:15px;font-weight:600;border:none;border-radius:12px;background:#534AB7;color:#fff;cursor:pointer;transition:all .15s}
-.sbtn:hover:not(:disabled){background:#3C3489}
+.sbtn{width:100%;padding:13px;font-size:15px;font-weight:600;border:none;border-radius:12px;color:#fff;cursor:pointer;transition:all .15s;background:var(--accent)}
+.sbtn:hover:not(:disabled){filter:brightness(.9)}
 .sbtn:disabled{opacity:.35;cursor:not-allowed}
 .ssel{margin-bottom:1rem;padding:10px 14px;background:#f5f5f7;border-radius:10px;font-size:13px;color:#6e6e73;min-height:44px}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
@@ -57,7 +63,7 @@ input[type=text]:focus,input[type=password]:focus{outline:none;border-color:#534
 .rt td{padding:6px 8px;border-bottom:1px solid #f5f5f7;color:#1d1d1f;vertical-align:middle}
 .btn{padding:9px 18px;font-size:13px;font-weight:500;border:1px solid #d1d1d6;border-radius:10px;background:#fff;color:#1d1d1f;cursor:pointer;transition:all .15s}
 .btn:hover{background:#f5f5f7}
-.bp{background:#534AB7;color:#fff;border-color:#534AB7}.bp:hover{background:#3C3489}
+.bp{color:#fff;border-color:var(--accent);background:var(--accent)}.bp:hover{filter:brightness(.9)}
 .bd{border-color:#E24B4A;color:#C0392B}.bd:hover{background:#FFE5E5}
 .bs{background:#1D9E75;color:#fff;border-color:#1D9E75}.bs:hover{background:#0F6E56}
 .bw{background:#BA7517;color:#fff;border-color:#BA7517}.bw:hover{background:#854F0B}
@@ -66,13 +72,13 @@ input[type=text]:focus,input[type=password]:focus{outline:none;border-color:#534
 .rc{padding:11px 13px;border:1px solid #e5e5ea;border-radius:12px;background:#fafafa}
 .rcn{font-size:12px;font-weight:600;color:#1d1d1f;margin-bottom:5px}
 .att{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:500;margin:1px 2px}
-.a1{background:#EEEDFE;color:#3C3489}.a2{background:#E1F5EE;color:#085041}.a3{background:#FAECE7;color:#712B13}.a4{background:#FAEEDA;color:#633806}
+.a1{background:#EEEDFE;color:#3C3489}.a2{background:#E1F5EE;color:#085041}
 .onote{font-size:12px;color:#C0392B;padding:10px 12px;background:#FFE5E5;border-radius:10px;margin-bottom:10px}
-.lrow{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end}
-.lbtn{padding:10px 18px;font-size:13px;font-weight:600;border:none;border-radius:10px;background:#534AB7;color:#fff;cursor:pointer}
-.lbtn:hover{background:#3C3489}
+.lrow{display:grid;grid-template-columns:1fr 1fr 1fr 2fr auto;gap:8px;align-items:end}
+.lbtn{padding:10px 18px;font-size:13px;font-weight:600;border:none;border-radius:10px;color:#fff;cursor:pointer;background:var(--accent)}
+.lbtn:hover{filter:brightness(.9)}
 .scard{border:1px solid #e5e5ea;border-radius:16px;overflow:hidden;margin-top:1rem}
-.shdr{padding:16px 18px;background:#534AB7;color:#fff}
+.shdr{padding:16px 18px;color:#fff;background:var(--accent)}
 .shdr h2{font-size:17px;font-weight:600}
 .shdr p{font-size:12px;opacity:.85;margin-top:3px}
 .tslot{display:grid;grid-template-columns:88px 1fr;border-bottom:1px solid #f0f0f5;background:#fff}
@@ -90,13 +96,13 @@ input[type=text]:focus,input[type=password]:focus{outline:none;border-color:#534
 .ebox{padding:12px 14px;background:#FFE5E5;border-radius:10px;font-size:13px;color:#C0392B;margin-top:12px}
 .loverlay{display:none;position:fixed;inset:0;background:rgba(255,255,255,.75);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:12px}
 .loverlay.show{display:flex}
-.spin{width:36px;height:36px;border:3px solid #e5e5ea;border-top-color:#534AB7;border-radius:50%;animation:spin .7s linear infinite}
+.spin{width:36px;height:36px;border:3px solid #e5e5ea;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .sdot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px;vertical-align:middle}
 .adm-login{max-width:320px;margin:2rem auto}
 .adm-login h2{font-size:16px;font-weight:600;margin-bottom:1rem;text-align:center}
 .pw-row{display:flex;gap:8px;margin-bottom:8px}
-.adm-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:4px 10px;background:#EEEDFE;color:#3C3489;border-radius:99px;margin-bottom:1rem}
+.adm-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:4px 10px;border-radius:99px;margin-bottom:1rem}
 .divider{border:none;border-top:1px solid #e5e5ea;margin:1rem 0}
 .rset{border:1px solid #FFE5E5;border-radius:12px;padding:1rem;background:#FFFAFA}
 .rset-t{font-size:13px;font-weight:600;color:#C0392B;margin-bottom:6px}
@@ -106,29 +112,37 @@ input[type=text]:focus,input[type=password]:focus{outline:none;border-color:#534
 .gsec-d{font-size:12px;color:#6e6e73;margin-bottom:12px;line-height:1.5}
 .sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem}
 .scard2{background:#f5f5f7;border-radius:10px;padding:10px;text-align:center}
-.snum{font-size:22px;font-weight:600;color:#534AB7}
+.snum{font-size:22px;font-weight:600}
 .slbl{font-size:11px;color:#6e6e73;margin-top:2px}
-/* 회차별 색상 강조 */
 .slot-color-0{border-left:3px solid #534AB7}
 .slot-color-1{border-left:3px solid #1D9E75}
 .slot-color-2{border-left:3px solid #D85A30}
 .slot-color-3{border-left:3px solid #BA7517}
-@media(max-width:500px){.booths{grid-template-columns:1fr}.input-row{grid-template-columns:1fr}.rg{grid-template-columns:1fr}.lrow{grid-template-columns:1fr 1fr}.lbtn{grid-column:span 2}.sgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){
+  .booths{grid-template-columns:1fr}
+  .info-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
+  .info-grid .name-field{grid-column:span 2}
+  .rg{grid-template-columns:1fr}
+  .lrow{grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto}
+  .lrow .lbtn{grid-column:span 2}
+  .sgrid{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
 <div class="loverlay" id="loverlay">
-  <div class="spin"></div>
+  <div class="spin" id="spinner"></div>
   <p id="ltxt" style="font-size:13px;color:#6e6e73">잠시만 기다려주세요...</p>
 </div>
 <div class="wrap">
   <div class="header">
     <h1>🔬 과학의 날 부스 체험 신청</h1>
-    <p>순천 왕지초 6학년 &nbsp;·&nbsp; 2026년 5월 11일(월) &nbsp;·&nbsp; 09:00~11:00</p>
-    <p style="margin-top:4px;font-size:12px;color:#534AB7;font-weight:500">✦ 4개 부스를 순서대로 체험합니다 (회당 20분)</p>
-    <p style="margin-top:6px;font-size:12px" id="connSt"><span class="sdot" style="background:#d1d1d6"></span>연결 중...</p>
+    <p>순천 왕지초 &nbsp;·&nbsp; 2026년 5월 11일(월) &nbsp;·&nbsp; 09:00~11:00</p>
+    <p style="margin-top:4px;font-size:12px;font-weight:500" id="gradeSubtitle"></p>
+    <div id="gradeBadge" style="margin-top:8px"></div>
+    <p style="margin-top:8px;font-size:12px" id="connSt"><span class="sdot" style="background:#d1d1d6"></span>연결 중...</p>
   </div>
-  <div class="tabs">
+  <div class="tabs" id="tabBar">
     <button class="tab active" onclick="switchTab('apply')">신청하기</button>
     <button class="tab" onclick="switchTab('myschedule')">내 일정 확인</button>
     <button class="tab" onclick="switchTab('status')">신청 현황</button>
@@ -139,9 +153,39 @@ input[type=text]:focus,input[type=password]:focus{outline:none;border-color:#534
   <div id="page-apply" class="page active">
     <div class="card">
       <div class="slabel">신청자 정보</div>
-      <div class="input-row">
-        <input type="text" id="classInput" placeholder="반 (숫자만 입력(4반: 4))" maxlength="10">
-        <input type="text" id="nameInput" placeholder="이름" maxlength="10">
+      <div class="info-grid">
+        <div>
+          <div class="info-grid-label">학년</div>
+          <select id="gradeSelect" onchange="updatePreview()">
+            <option value="">선택</option>
+            <option value="5">5학년</option>
+            <option value="6">6학년</option>
+          </select>
+        </div>
+        <div>
+          <div class="info-grid-label">반</div>
+          <select id="classSelect" onchange="updatePreview()">
+            <option value="">선택</option>
+            <option value="1">1반</option>
+            <option value="2">2반</option>
+            <option value="3">3반</option>
+            <option value="4">4반</option>
+            <option value="5">5반</option>
+            <option value="6">6반</option>
+            <option value="7">7반</option>
+          </select>
+        </div>
+        <div>
+          <div class="info-grid-label">번호</div>
+          <input type="text" id="numInput" placeholder="출석번호" maxlength="3" oninput="this.value=this.value.replace(/[^0-9]/g,'');updatePreview()" inputmode="numeric">
+        </div>
+        <div class="name-field">
+          <div class="info-grid-label">이름</div>
+          <input type="text" id="nameInput" placeholder="이름 입력" maxlength="10" oninput="updatePreview()">
+        </div>
+      </div>
+      <div class="preview-box" id="previewBox">
+        <span style="color:#aeaeb2">학년·반·번호·이름을 입력하면 여기에 표시됩니다</span>
       </div>
       <div class="hint">
         체험하고 싶은 부스를 <strong>우선순위 순서대로 최대 4개</strong> 선택하세요.<br>
@@ -166,8 +210,35 @@ input[type=text]:focus,input[type=password]:focus{outline:none;border-color:#534
     <div class="card">
       <div class="slabel">내 체험 일정 조회</div>
       <div class="lrow">
-        <input type="text" id="lookupClass" placeholder="반 (예: 4반인 경우 '4'만 입력)" maxlength="10">
-        <input type="text" id="lookupName" placeholder="이름" maxlength="10">
+        <div>
+          <div class="info-grid-label">학년</div>
+          <select id="lookupGrade" onchange="updateLookupPreview()">
+            <option value="">선택</option>
+            <option value="5">5학년</option>
+            <option value="6">6학년</option>
+          </select>
+        </div>
+        <div>
+          <div class="info-grid-label">반</div>
+          <select id="lookupClass" onchange="updateLookupPreview()">
+            <option value="">선택</option>
+            <option value="1">1반</option>
+            <option value="2">2반</option>
+            <option value="3">3반</option>
+            <option value="4">4반</option>
+            <option value="5">5반</option>
+            <option value="6">6반</option>
+            <option value="7">7반</option>
+          </select>
+        </div>
+        <div>
+          <div class="info-grid-label">번호</div>
+          <input type="text" id="lookupNum" placeholder="출석번호" maxlength="3" oninput="this.value=this.value.replace(/[^0-9]/g,'');updateLookupPreview()" inputmode="numeric">
+        </div>
+        <div>
+          <div class="info-grid-label">이름</div>
+          <input type="text" id="lookupName" placeholder="이름" maxlength="10" oninput="updateLookupPreview()">
+        </div>
         <button class="lbtn" onclick="lookupSched()">확인</button>
       </div>
     </div>
@@ -194,7 +265,7 @@ input[type=text]:focus,input[type=password]:focus{outline:none;border-color:#534
     <div id="adminPanel" style="display:none">
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-          <span class="adm-badge">🔓 관리자 모드</span>
+          <span class="adm-badge" id="adminBadge">🔓 관리자 모드</span>
           <button class="btn" onclick="adminLogout()" style="font-size:12px;padding:6px 12px">로그아웃</button>
         </div>
         <div class="sgrid" id="adminStats"></div>
@@ -222,7 +293,7 @@ input[type=text]:focus,input[type=password]:focus{outline:none;border-color:#534
         <hr class="divider">
         <div class="rset">
           <div class="rset-t">⚠️ 데이터 초기화 (테스트용)</div>
-          <div class="rset-d">테스트 완료 후 실제 운영 전에 사용하세요. 삭제된 데이터는 복구할 수 없습니다.</div>
+          <div class="rset-d">테스트 완료 후 실제 운영 전에 사용하세요.</div>
           <div class="brow">
             <button class="btn bw" onclick="clearAssign()">배정만 초기화</button>
             <button class="btn bd" onclick="clearAll()">전체 데이터 삭제</button>
@@ -241,6 +312,43 @@ const cfg={apiKey:"AIzaSyD6UC4IEfMF8QvSOGKj5OuV7PUCpgj1HIk",authDomain:"science-
 const db=getFirestore(initializeApp(cfg));
 const PW="0504";
 
+// URL 파라미터로 학년 결정 (?grade=5 or ?grade=6)
+const urlParams=new URLSearchParams(window.location.search);
+const GRADE=urlParams.get('grade'); // '5' | '6' | null
+const COLLECTION=GRADE?`registrations_${GRADE}`:'registrations';
+
+// 학년별 색상 테마
+const THEME={
+  '5':{accent:'#534AB7',soft:'rgba(83,74,183,.12)',badgeBg:'#EEEDFE',badgeColor:'#3C3489',label:'5학년'},
+  '6':{accent:'#1D9E75',soft:'rgba(29,158,117,.12)',badgeBg:'#E1F5EE',badgeColor:'#085041',label:'6학년'},
+  null:{accent:'#534AB7',soft:'rgba(83,74,183,.12)',badgeBg:'#EEEDFE',badgeColor:'#3C3489',label:'전체'}
+};
+const T=THEME[GRADE]||THEME[null];
+
+// CSS 변수 적용
+document.documentElement.style.setProperty('--accent',T.accent);
+document.documentElement.style.setProperty('--accent-soft',T.soft);
+document.getElementById('spinner').style.borderTopColor=T.accent;
+
+// 헤더 배지 및 탭 색상
+if(GRADE){
+  document.getElementById('gradeSubtitle').textContent=`✦ ${T.label} 전용 신청 페이지`;
+  document.getElementById('gradeSubtitle').style.color=T.accent;
+  document.getElementById('gradeBadge').innerHTML=`<span class="grade-badge grade-${GRADE}">${T.label}</span>`;
+  document.querySelectorAll('.tab.active,.tab:hover').forEach(t=>t.style.background=T.accent);
+}
+
+// 학년 드롭다운 자동 선택 및 잠금
+if(GRADE){
+  ['gradeSelect','lookupGrade'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.value=GRADE;
+    el.disabled=true;
+    el.style.background='#f5f5f7';
+    el.style.color='#6e6e73';
+  });
+}
+
 const BOOTHS=[
   {id:1,name:"새로운 미래 세상",desc:"홀로렌즈·VR로 미래 기술 체험",tool:"오큘러스",max:14},
   {id:2,name:"데이터 분석 로봇!",desc:"AI 모델로 이상기후 분류 프로그래밍",tool:"티처블머신·핑퐁",max:14},
@@ -253,7 +361,6 @@ const BOOTHS=[
   {id:9,name:"AI 자율주행 모빌리티",desc:"미래 스마트카 기능 설계 체험",tool:"알티노",max:14},
   {id:10,name:"바다 빛 키링 (키링 만들기)",desc:"씨글라스 활용 키링 제작 체험",tool:"씨글라스",max:13}
 ];
-
 const TS=[
   {round:1,start:"09:00",end:"09:20"},
   {round:2,start:"09:30",end:"09:50"},
@@ -267,112 +374,96 @@ let regs={},sel=[],curTab='apply',isAdmin=false;
 const sl=m=>{document.getElementById('ltxt').textContent=m||'처리 중...';document.getElementById('loverlay').classList.add('show')};
 const hl=()=>document.getElementById('loverlay').classList.remove('show');
 
+// 학생 정보 미리보기
+window.updatePreview=function(){
+  const g=document.getElementById('gradeSelect').value;
+  const c=document.getElementById('classSelect').value;
+  const n=document.getElementById('numInput').value.trim();
+  const nm=document.getElementById('nameInput').value.trim();
+  const el=document.getElementById('previewBox');
+  if(!g||!c||!n||!nm){
+    el.innerHTML='<span style="color:#aeaeb2">학년·반·번호·이름을 입력하면 여기에 표시됩니다</span>';
+  } else {
+    el.innerHTML=`<strong>${g}학년 ${c}반 ${n}번 ${nm}</strong> <span style="font-size:11px;color:#6e6e73">으로 신청합니다</span>`;
+  }
+  chkSub();
+};
+
+window.updateLookupPreview=function(){};
+
 // 실시간 리스너
-onSnapshot(collection(db,'registrations'),snap=>{
+onSnapshot(collection(db,COLLECTION),snap=>{
   regs={};
   snap.forEach(d=>{regs[d.id]=d.data()});
-  document.getElementById('connSt').innerHTML='<span class="sdot" style="background:#34C759"></span>실시간 연결됨';
+  document.getElementById('connSt').innerHTML=`<span class="sdot" style="background:#34C759"></span>실시간 연결됨`;
   renderBooths();
   if(curTab==='status') renderStatus();
   if(curTab==='admin'&&isAdmin){renderStats();renderAssign()}
 },()=>{
-  document.getElementById('connSt').innerHTML='<span class="sdot" style="background:#FF3B30"></span>연결 오류 — 새로고침 해주세요'
+  document.getElementById('connSt').innerHTML='<span class="sdot" style="background:#FF3B30"></span>연결 오류';
 });
 
 const shuffle=a=>[...a].sort(()=>Math.random()-.5);
 
-// ────────────────────────────────────────
-// 핵심 배정 알고리즘
-// 각 학생에게 서로 다른 4개 부스를 배정
-// 우선순위 → 초과 시 다음 순위 → 나머지 랜덤
-// 각 부스는 회차당 정원(max) 이하로 제한
-// ────────────────────────────────────────
-function buildAssignment(regEntries) {
-  // 부스별 회차 슬롯 카운터 [회차0,회차1,회차2,회차3]
-  // 각 회차당 부스 정원 = Math.ceil(부스정원 / 4) * 여유 (넉넉하게 관리)
-  const slotCap = {}; // slotCap[boothId][round] = 남은 자리
-  BOOTHS.forEach(b=>{
-    slotCap[b.id] = [0,1,2,3].map(()=> Math.ceil(b.max / 4) + 1);
-  });
-
-  // 학생별 결과: result[key] = [boothId, boothId, boothId, boothId]
-  const result = {};
-  const keys = regEntries.map(([k])=>k);
-  keys.forEach(k=>{ result[k] = [null,null,null,null]; });
-
-  // 1단계: 우선순위 기반으로 최대한 배정 (셔플 순서로 공정하게)
-  const shuffled = shuffle(regEntries);
-
-  for(let priority=0; priority<4; priority++){
+function buildAssignment(entries){
+  const slotCap={};
+  BOOTHS.forEach(b=>{slotCap[b.id]=[0,1,2,3].map(()=>Math.ceil(b.max/4)+1)});
+  const result={};
+  entries.forEach(([k])=>{result[k]=[null,null,null,null]});
+  const shuffled=shuffle(entries);
+  for(let p=0;p<4;p++){
     shuffled.forEach(([k,r])=>{
-      const boothId = r.priorities?.[priority];
-      if(!boothId) return;
-      const already = result[k].filter(Boolean);
-      if(already.includes(boothId)) return; // 이미 이 부스 배정됨
-      if(already.length >= 4) return; // 이미 4개 다 찼음
-
-      // 빈 슬롯 찾기 (아직 배정 안 된 회차)
-      const emptySlots = [0,1,2,3].filter(i=>result[k][i]===null);
-      if(!emptySlots.length) return;
-
-      // 이 부스의 빈 회차 슬롯 중 자리 있는 것 찾기
-      const available = shuffle(emptySlots).filter(i=>slotCap[boothId][i]>0);
-      if(!available.length) return;
-
-      const slot = available[0];
-      result[k][slot] = boothId;
-      slotCap[boothId][slot]--;
+      const bid=r.priorities?.[p];
+      if(!bid)return;
+      const used=result[k].filter(Boolean);
+      if(used.includes(bid)||used.length>=4)return;
+      const empty=[0,1,2,3].filter(i=>result[k][i]===null);
+      const avail=shuffle(empty).filter(i=>slotCap[bid][i]>0);
+      if(!avail.length)return;
+      result[k][avail[0]]=bid;
+      slotCap[bid][avail[0]]--;
     });
   }
-
-  // 2단계: 아직 4개 미만인 학생에게 남은 부스를 랜덤으로 채움
-  // 여러 번 반복하여 최대한 채움
-  for(let pass=0; pass<5; pass++){
-    shuffle(keys).forEach(k=>{
-      const emptySlots = [0,1,2,3].filter(i=>result[k][i]===null);
-      if(!emptySlots.length) return;
-
-      const usedBooths = result[k].filter(Boolean);
-      // 아직 배정 안 된 부스 목록
-      const remainingBooths = shuffle(BOOTHS.map(b=>b.id).filter(id=>!usedBooths.includes(id)));
-
-      for(const boothId of remainingBooths){
-        if(!emptySlots.length) break;
-        const availSlots = shuffle(emptySlots.filter(i=>slotCap[boothId][i]>0));
-        if(!availSlots.length) continue;
-
-        const slot = availSlots[0];
-        result[k][slot] = boothId;
-        slotCap[boothId][slot]--;
-        emptySlots.splice(emptySlots.indexOf(slot),1);
+  for(let pass=0;pass<5;pass++){
+    shuffle(entries.map(([k])=>k)).forEach(k=>{
+      const empty=[0,1,2,3].filter(i=>result[k][i]===null);
+      if(!empty.length)return;
+      const used=result[k].filter(Boolean);
+      const remaining=shuffle(BOOTHS.map(b=>b.id).filter(id=>!used.includes(id)));
+      for(const bid of remaining){
+        if(!empty.length)break;
+        const avail=shuffle(empty.filter(i=>slotCap[bid][i]>0));
+        if(!avail.length)continue;
+        result[k][avail[0]]=bid;
+        slotCap[bid][avail[0]]--;
+        empty.splice(empty.indexOf(avail[0]),1);
       }
     });
   }
-
-  // 3단계: 그래도 못 채운 슬롯은 정원 무시하고 강제 배정 (학생 경험 보장)
-  shuffle(keys).forEach(k=>{
-    const emptySlots = [0,1,2,3].filter(i=>result[k][i]===null);
-    if(!emptySlots.length) return;
-    const usedBooths = result[k].filter(Boolean);
-    const remaining = shuffle(BOOTHS.map(b=>b.id).filter(id=>!usedBooths.includes(id)));
-    emptySlots.forEach((slot,idx)=>{
-      if(remaining[idx]) result[k][slot] = remaining[idx];
-    });
+  shuffle(entries.map(([k])=>k)).forEach(k=>{
+    const empty=[0,1,2,3].filter(i=>result[k][i]===null);
+    if(!empty.length)return;
+    const used=result[k].filter(Boolean);
+    const rem=shuffle(BOOTHS.map(b=>b.id).filter(id=>!used.includes(id)));
+    empty.forEach((slot,idx)=>{if(rem[idx])result[k][slot]=rem[idx]});
   });
-
   return result;
+}
+
+function getDocId(grade,cls,num,name){
+  return`${grade}학년_${cls}반_${String(num).padStart(2,'0')}번_${name}`.replace(/\s+/g,'_');
 }
 
 function getApp(id){return Object.values(regs).filter(r=>r.priorities&&r.priorities.includes(id))}
 
 function renderBooths(){
   const g=document.getElementById('boothGrid');
-  if(!g) return;
+  if(!g)return;
   g.innerHTML='';
   BOOTHS.forEach(b=>{
-    const cnt=getApp(b.id).length,pct=Math.min(cnt/b.max,1),si=sel.indexOf(b.id),isOver=cnt>b.max;
-    const barC=isOver?'cb cover':pct>=.7?'cb cwarn':'cb cok';
-    const bdg=isOver?`<span class="bdg bover">인기 많음</span>`:pct>=.7?`<span class="bdg bwarn">인기 많음</span>`:'';
+    const cnt=getApp(b.id).length,pct=Math.min(cnt/b.max,1),si=sel.indexOf(b.id);
+    const barC=pct>=1?'cb cover':pct>=.7?'cb cwarn':'cb cok';
+    const bdg=pct>=.7?`<span class="bdg bwarn">인기 많음</span>`:'';
     const pb=si>=0?`<div class="pb pb${si+1}">${si+1}</div>`:'';
     const sc=si>=0?` s${si+1}`:'';
     const c=document.createElement('div');
@@ -385,11 +476,8 @@ function renderBooths(){
 
 function togBooth(id){
   const i=sel.indexOf(id);
-  if(i>=0) sel.splice(i,1);
-  else{
-    if(sel.length>=4){toast('최대 4개까지 선택할 수 있어요.',true);return}
-    sel.push(id);
-  }
+  if(i>=0)sel.splice(i,1);
+  else{if(sel.length>=4){toast('최대 4개까지 선택할 수 있어요.',true);return}sel.push(id)}
   renderBooths();renderSel();chkSub();
 }
 
@@ -402,13 +490,12 @@ function renderSel(){
 }
 
 function chkSub(){
-  const c=document.getElementById('classInput').value.trim();
-  const n=document.getElementById('nameInput').value.trim();
-  document.getElementById('submitBtn').disabled=!(c&&n);
+  const g=document.getElementById('gradeSelect').value;
+  const c=document.getElementById('classSelect').value;
+  const n=document.getElementById('numInput').value.trim();
+  const nm=document.getElementById('nameInput').value.trim();
+  document.getElementById('submitBtn').disabled=!(g&&c&&n&&nm);
 }
-
-document.getElementById('classInput').addEventListener('input',chkSub);
-document.getElementById('nameInput').addEventListener('input',chkSub);
 
 function toast(msg,err){
   const t=document.getElementById('toast');
@@ -423,6 +510,9 @@ window.adminLogin=function(){
     document.getElementById('adminLoginArea').style.display='none';
     document.getElementById('adminPanel').style.display='block';
     e.style.display='none';
+    const badge=document.getElementById('adminBadge');
+    badge.style.background=T.badgeBg;badge.style.color=T.badgeColor;
+    badge.textContent=`🔓 관리자 모드 ${GRADE?`(${T.label})`:''}`;
     renderStats();renderAssign();
   }else{e.style.display='block';document.getElementById('adminPw').value=''}
 };
@@ -435,62 +525,72 @@ window.adminLogout=function(){
 };
 
 function renderStats(){
-  const e=document.getElementById('adminStats');
-  if(!e) return;
+  const e=document.getElementById('adminStats');if(!e)return;
   const arr=Object.values(regs),tot=arr.length,asgn=arr.filter(r=>r.scheduleSlots&&r.scheduleSlots.every(s=>s!=null)).length;
-  e.innerHTML=`<div class="scard2"><div class="snum">${tot}</div><div class="slbl">총 신청자</div></div><div class="scard2"><div class="snum" style="color:#1D9E75">${asgn}</div><div class="slbl">배정 완료</div></div><div class="scard2"><div class="snum" style="color:#BA7517">${tot-asgn}</div><div class="slbl">미배정</div></div>`;
+  e.innerHTML=`<div class="scard2"><div class="snum" style="color:${T.accent}">${tot}</div><div class="slbl">총 신청자</div></div><div class="scard2"><div class="snum" style="color:#1D9E75">${asgn}</div><div class="slbl">배정 완료</div></div><div class="scard2"><div class="snum" style="color:#BA7517">${tot-asgn}</div><div class="slbl">미배정</div></div>`;
 }
 
 window.submitReg=async function(){
-  const c=document.getElementById('classInput').value.trim(),n=document.getElementById('nameInput').value.trim();
-  if(!c||!n) return;
-  const id=`${c}_${n}`.replace(/\s+/g,'_');
+  const g=document.getElementById('gradeSelect').value;
+  const c=document.getElementById('classSelect').value;
+  const n=document.getElementById('numInput').value.trim();
+  const nm=document.getElementById('nameInput').value.trim();
+  if(!g||!c||!n||!nm)return;
+  const docId=getDocId(g,c,n,nm);
   sl('신청 중...');
   try{
-    const ex=await getDoc(doc(db,'registrations',id));
+    const ex=await getDoc(doc(db,COLLECTION,docId));
     if(ex.exists()){hl();toast('이미 신청되어 있어요!',true);return}
-    await setDoc(doc(db,'registrations',id),{
-      class:c,name:n,
+    await setDoc(doc(db,COLLECTION,docId),{
+      grade:g,class:c,num:n,name:nm,
+      displayName:`${g}학년 ${c}반 ${n}번 ${nm}`,
       priorities:[...sel],
       time:new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}),
       timestamp:Date.now(),
       scheduleSlots:null
     });
     hl();
-    toast(`${c} ${n}님 신청 완료! (우선순위 ${sel.length}개 선택됨)`);
-    document.getElementById('classInput').value='';
+    toast(`${g}학년 ${c}반 ${n}번 ${nm}님 신청 완료!`);
+    if(!GRADE){document.getElementById('gradeSelect').value=''}
+    document.getElementById('classSelect').value='';
+    document.getElementById('numInput').value='';
     document.getElementById('nameInput').value='';
     sel=[];
     renderBooths();renderSel();chkSub();
+    document.getElementById('previewBox').innerHTML='<span style="color:#aeaeb2">학년·반·번호·이름을 입력하면 여기에 표시됩니다</span>';
   }catch(e){hl();toast('오류가 발생했어요.',true)}
 };
 
 window.lookupSched=async function(){
-  const c=document.getElementById('lookupClass').value.trim(),n=document.getElementById('lookupName').value.trim(),el=document.getElementById('schedResult');
-  if(!c||!n){el.innerHTML='<div class="ebox">반 번호와 이름을 모두 입력해주세요.</div>';return}
+  const g=document.getElementById('lookupGrade').value;
+  const c=document.getElementById('lookupClass').value;
+  const n=document.getElementById('lookupNum').value.trim();
+  const nm=document.getElementById('lookupName').value.trim();
+  const el=document.getElementById('schedResult');
+  if(!g||!c||!n||!nm){el.innerHTML='<div class="ebox">학년·반·번호·이름을 모두 입력해주세요.</div>';return}
   sl('조회 중...');
   try{
-    const id=`${c}_${n}`.replace(/\s+/g,'_'),snap=await getDoc(doc(db,'registrations',id));
+    const docId=getDocId(g,c,n,nm);
+    const snap=await getDoc(doc(db,COLLECTION,docId));
     hl();
-    if(!snap.exists()){el.innerHTML='<div class="ebox">신청 내역을 찾을 수 없어요.<br>반 번호와 이름을 다시 확인해주세요.</div>';return}
+    if(!snap.exists()){el.innerHTML='<div class="ebox">신청 내역을 찾을 수 없어요.<br>학년·반·번호·이름을 다시 확인해주세요.</div>';return}
     const reg=snap.data();
     if(!reg.scheduleSlots||reg.scheduleSlots.every(s=>s===null)){
-      const chips=(reg.priorities||[]).map((id2,i)=>{
-        const cls2=['c1','c2','c3','c4'],l2=['1순위','2순위','3순위','4순위'];
-        return`<span class="chip ${cls2[i]}" style="font-size:11px">${l2[i]} ${BOOTHS.find(b=>b.id===id2)?.name||id2}</span>`;
+      const chips=(reg.priorities||[]).map((id,i)=>{
+        const cls2=['c1','c2','c3','c4'],l=['1순위','2순위','3순위','4순위'];
+        return`<span class="chip ${cls2[i]}" style="font-size:11px">${l[i]} ${BOOTHS.find(b=>b.id===id)?.name||id}</span>`;
       }).join('');
-      const nosel=!reg.priorities?.length?'<p style="font-size:12px;color:#6e6e73;margin-top:6px">우선순위 미선택 — 랜덤으로 배정됩니다.</p>':'';
-      el.innerHTML=`<div class="scard"><div class="shdr"><h2>${reg.class} ${reg.name}님</h2><p>신청 시각 ${reg.time} · 배정 대기 중</p></div><div style="padding:16px">${chips?`<p style="font-size:12px;color:#6e6e73;margin-bottom:8px">선택한 우선순위</p><div class="chips">${chips}</div>`:''}${nosel}<div class="ibox" style="margin-top:12px">아직 배정이 완료되지 않았어요.<br>선생님이 배정을 실행하면 4개 부스의 체험 순서를 확인할 수 있어요.</div></div></div>`;
+      el.innerHTML=`<div class="scard"><div class="shdr"><h2>${reg.displayName}님</h2><p>신청 시각 ${reg.time} · 배정 대기 중</p></div><div style="padding:16px">${chips?`<p style="font-size:12px;color:#6e6e73;margin-bottom:8px">선택한 우선순위</p><div class="chips">${chips}</div>`:''}<div class="ibox" style="margin-top:12px">아직 배정이 완료되지 않았어요.<br>선생님이 배정을 실행하면 4개 부스의 체험 순서를 확인할 수 있어요.</div></div></div>`;
       return;
     }
     const slots=reg.scheduleSlots;
     const rows=TS.map((ts,i)=>{
       const bid=slots[i];
-      if(!bid) return`<div class="tslot"><div class="tcol"><div class="trnd">${ts.round}회차</div><div class="tval">${ts.start}</div><div class="tdur">~${ts.end}</div></div><div style="padding:14px 16px;background:#fafafa"><p style="font-size:13px;color:#aeaeb2">미배정</p></div></div>`;
+      if(!bid)return`<div class="tslot"><div class="tcol"><div class="trnd">${ts.round}회차</div><div class="tval">${ts.start}</div><div class="tdur">~${ts.end}</div></div><div style="padding:14px 16px;background:#fafafa"><p style="font-size:13px;color:#aeaeb2">미배정</p></div></div>`;
       const b=BOOTHS.find(x=>x.id===bid);
       return`<div class="tslot"><div class="tcol slot-color-${i}"><div class="trnd">${ts.round}회차</div><div class="tval">${ts.start}</div><div class="tdur">~${ts.end}</div></div><div class="bcol"><div class="bcnum">부스 ${b.id}</div><div class="bcnam">${b.name}</div><div class="bcdesc">${b.desc}</div><div class="bctool">${b.tool}</div></div></div>`;
     }).join('');
-    el.innerHTML=`<div class="scard"><div class="shdr"><h2>${reg.class} ${reg.name}님의 체험 일정</h2><p>4개 부스 체험 순서 확정</p></div><div>${rows}</div></div>`;
+    el.innerHTML=`<div class="scard"><div class="shdr"><h2>${reg.displayName}님의 체험 일정</h2><p>4개 부스 체험 순서 확정</p></div><div>${rows}</div></div>`;
   }catch(e){hl();document.getElementById('schedResult').innerHTML='<div class="ebox">오류가 발생했어요.</div>'}
 };
 
@@ -500,46 +600,46 @@ function renderStatus(){
   const bR=BOOTHS.map(b=>{
     const cnt=getApp(b.id).length,pct=cnt/b.max;
     const bc=pct>=1?'bfull':pct>=.7?'bwarn':'';
-    const lbl=pct>=1?'정원':pct>=.7?'인기':'여유';
-    return`<tr><td style="color:#aeaeb2">부스 ${b.id}</td><td>${b.name}</td><td>${cnt}명 신청</td><td><span class="bdg ${bc}">${lbl}</span></td></tr>`;
+    return`<tr><td style="color:#aeaeb2">부스 ${b.id}</td><td>${b.name}</td><td>${cnt}명 신청</td><td><span class="bdg ${bc}">${pct>=1?'정원':pct>=.7?'인기':'여유'}</span></td></tr>`;
   }).join('');
-  const srt=[...arr].sort((a,b)=>a.timestamp-b.timestamp);
+  const srt=[...arr].sort((a,b)=>{
+    if(a.grade!==b.grade)return a.grade-b.grade;
+    if(a.class!==b.class)return a.class-b.class;
+    return parseInt(a.num)-parseInt(b.num);
+  });
   const rR=srt.map(r=>{
     const chips=(r.priorities||[]).map((id,pi)=>{
       const c=['a1','a2','a3','a4'],l=['1순','2순','3순','4순'];
       return`<span class="att ${c[pi]}">${l[pi]} ${BOOTHS.find(b=>b.id===id)?.name||id}</span>`;
     }).join('');
     const done=r.scheduleSlots&&r.scheduleSlots.filter(Boolean).length===4;
-    const status=done?`<span class="att a1">배정완료</span>`:`<span style="font-size:11px;color:#aeaeb2">대기중</span>`;
-    return`<tr><td>${r.class} ${r.name}</td><td style="line-height:2">${chips||'<span style="color:#aeaeb2;font-size:11px">랜덤배정</span>'}</td><td>${status}</td></tr>`;
+    return`<tr><td>${r.grade}학년 ${r.class}반 ${r.num}번</td><td>${r.name}</td><td style="line-height:2">${chips||'<span style="color:#aeaeb2;font-size:11px">랜덤배정</span>'}</td><td>${done?`<span class="att a1">완료</span>`:`<span style="font-size:11px;color:#aeaeb2">대기</span>`}</td></tr>`;
   }).join('');
-  el.innerHTML=`<div class="card"><p style="font-size:13px;font-weight:600;margin-bottom:8px">부스별 신청 현황</p><table class="rt"><thead><tr><th></th><th>부스명</th><th>신청 인원</th><th>상태</th></tr></thead><tbody>${bR}</tbody></table></div><div class="card"><p style="font-size:13px;font-weight:600;margin-bottom:8px">전체 신청자 (${arr.length}명)</p><table class="rt"><thead><tr><th>이름</th><th>우선순위</th><th>배정</th></tr></thead><tbody>${rR}</tbody></table></div>`;
+  el.innerHTML=`<div class="card"><p style="font-size:13px;font-weight:600;margin-bottom:8px">부스별 신청 현황</p><table class="rt"><thead><tr><th></th><th>부스명</th><th>신청 인원</th><th></th></tr></thead><tbody>${bR}</tbody></table></div><div class="card"><p style="font-size:13px;font-weight:600;margin-bottom:8px">전체 신청자 (${arr.length}명)</p><table class="rt"><thead><tr><th>학년/반/번호</th><th>이름</th><th>우선순위</th><th>배정</th></tr></thead><tbody>${rR}</tbody></table></div>`;
 }
 
 window.runAssign=async function(){
   const entries=Object.entries(regs);
   if(!entries.length){alert('신청자가 없습니다.');return}
-  if(!confirm(`${entries.length}명을 대상으로 4부스 배정을 실행할까요?`)) return;
-  sl('배정 중... (잠시 기다려주세요)');
+  if(!confirm(`${entries.length}명을 대상으로 4부스 배정을 실행할까요?`))return;
+  sl('배정 중...');
   try{
     const result=buildAssignment(entries);
     const batch=writeBatch(db);
-    entries.forEach(([k])=>{
-      batch.update(doc(db,'registrations',k),{scheduleSlots:result[k]});
-    });
+    entries.forEach(([k])=>{batch.update(doc(db,COLLECTION,k),{scheduleSlots:result[k]})});
     await batch.commit();
     hl();renderStats();renderAssign();
-    const unfinished=entries.filter(([k])=>result[k].some(s=>s===null)).length;
-    alert(unfinished>0?`배정 완료!\n⚠️ ${unfinished}명은 일부 슬롯을 채우지 못했어요 (부스 수 부족).`:'배정이 완료됐습니다! 모든 학생에게 4개 부스가 배정됐어요.');
+    const bad=entries.filter(([k])=>result[k].some(s=>s===null)).length;
+    alert(bad>0?`배정 완료!\n⚠️ ${bad}명은 일부 슬롯 미배정 (부스 수 부족)`:'모든 학생에게 4개 부스 배정 완료!');
   }catch(e){hl();alert('오류: '+e.message)}
 };
 
 window.clearAssign=async function(){
-  if(!confirm('배정 결과를 초기화할까요?')) return;
+  if(!confirm('배정 결과를 초기화할까요?'))return;
   sl('초기화 중...');
   try{
     const batch=writeBatch(db);
-    Object.keys(regs).forEach(k=>{batch.update(doc(db,'registrations',k),{scheduleSlots:null})});
+    Object.keys(regs).forEach(k=>{batch.update(doc(db,COLLECTION,k),{scheduleSlots:null})});
     await batch.commit();hl();renderStats();renderAssign();
   }catch(e){hl();alert('오류: '+e.message)}
 };
@@ -550,11 +650,10 @@ window.clearAll=async function(){
   sl('전체 삭제 중...');
   try{
     const batch=writeBatch(db);
-    Object.keys(regs).forEach(k=>{batch.delete(doc(db,'registrations',k))});
+    Object.keys(regs).forEach(k=>{batch.delete(doc(db,COLLECTION,k))});
     await batch.commit();
     sel=[];renderBooths();renderSel();chkSub();
-    hl();renderStats();renderAssign();
-    alert('전체 데이터가 삭제됐습니다.');
+    hl();renderStats();renderAssign();alert('전체 데이터가 삭제됐습니다.');
   }catch(e){hl();alert('오류: '+e.message)}
 };
 
@@ -567,59 +666,67 @@ function makeCSV(data,filename){
 window.dlCSV=function(){
   const arr=Object.values(regs).sort((a,b)=>a.timestamp-b.timestamp);
   if(!arr.length){alert('신청 데이터가 없어요.');return}
-  const hdr=['반','이름','신청시각','1순위','2순위','3순위','4순위'];
+  const hdr=['학년','반','번호','이름','신청시각','1순위','2순위','3순위','4순위'];
   const rows=arr.map(r=>{
     const ps=(r.priorities||[]).map(id=>BOOTHS.find(b=>b.id===id)?.name||'');
     while(ps.length<4)ps.push('');
-    return[r.class,r.name,r.time,...ps];
+    return[r.grade,r.class,r.num,r.name,r.time,...ps];
   });
-  makeCSV([hdr,...rows],'과학의날_신청목록.csv');
+  makeCSV([hdr,...rows],`과학의날_신청목록${GRADE?`_${GRADE}학년`:''}.csv`);
 };
 
 window.dlCSVAssigned=function(){
-  const arr=Object.values(regs).filter(r=>r.scheduleSlots).sort((a,b)=>a.class.localeCompare(b.class));
-  if(!arr.length){alert('배정된 데이터가 없어요. 먼저 배정을 실행해주세요.');return}
-  const hdr=['반','이름','1회차 09:00~09:20','2회차 09:30~09:50','3회차 10:00~10:20','4회차 10:30~10:50'];
-  const rows=arr.map(r=>{
-    const slots=(r.scheduleSlots||[null,null,null,null]).map(id=>id?`부스${id} ${BOOTHS.find(b=>b.id===id)?.name||''}` : '미배정');
-    return[r.class,r.name,...slots];
+  const arr=Object.values(regs).filter(r=>r.scheduleSlots).sort((a,b)=>{
+    if(a.grade!==b.grade)return a.grade-b.grade;
+    if(a.class!==b.class)return a.class-b.class;
+    return parseInt(a.num)-parseInt(b.num);
   });
-  makeCSV([hdr,...rows],'과학의날_배정결과.csv');
+  if(!arr.length){alert('배정된 데이터가 없어요.');return}
+  const hdr=['학년','반','번호','이름','1회차 09:00~09:20','2회차 09:30~09:50','3회차 10:00~10:20','4회차 10:30~10:50'];
+  const rows=arr.map(r=>{
+    const slots=(r.scheduleSlots||[null,null,null,null]).map(id=>id?`부스${id} ${BOOTHS.find(b=>b.id===id)?.name||''}`:'미배정');
+    return[r.grade,r.class,r.num,r.name,...slots];
+  });
+  makeCSV([hdr,...rows],`과학의날_배정결과${GRADE?`_${GRADE}학년`:''}.csv`);
 };
 
 function renderAssign(){
-  const el=document.getElementById('assignResult');
-  if(!el) return;
+  const el=document.getElementById('assignResult');if(!el)return;
   const arr=Object.values(regs);
   const done=arr.filter(r=>r.scheduleSlots&&r.scheduleSlots.filter(Boolean).length===4);
   if(!done.length){el.innerHTML='<p style="font-size:13px;color:#6e6e73">배정 실행 전입니다.</p>';return}
-
-  // 회차별로 각 부스에 몇 명이 배정됐는지 표시
   const roundSummary=TS.map((ts,ri)=>{
-    const boothCounts=BOOTHS.map(b=>{
+    const bc=BOOTHS.map(b=>{
       const cnt=arr.filter(r=>r.scheduleSlots?.[ri]===b.id).length;
-      if(!cnt) return'';
-      return`<span class="att a1">부스${b.id} ${cnt}명</span>`;
+      return cnt?`<span class="att a1">부스${b.id} ${cnt}명</span>`:'';
     }).filter(Boolean).join(' ');
-    return`<div style="margin-bottom:8px"><span style="font-size:11px;font-weight:600;color:#6e6e73">${ts.round}회차 ${ts.start}~${ts.end}</span><div style="margin-top:4px;line-height:2">${boothCounts||'<span style="font-size:11px;color:#aeaeb2">없음</span>'}</div></div>`;
+    return`<div style="margin-bottom:8px"><span style="font-size:11px;font-weight:600;color:#6e6e73">${ts.round}회차 ${ts.start}~${ts.end}</span><div style="margin-top:4px;line-height:2">${bc||'<span style="font-size:11px;color:#aeaeb2">없음</span>'}</div></div>`;
   }).join('');
-
   const incomplete=arr.filter(r=>!r.scheduleSlots||r.scheduleSlots.some(s=>!s));
-  const oh=incomplete.length?`<div class="onote">⚠️ 일부 슬롯 미배정 학생 ${incomplete.length}명: ${incomplete.map(r=>`${r.class} ${r.name}`).join(', ')}</div>`:'';
-
-  el.innerHTML=`${oh}<div style="font-size:13px;font-weight:600;margin-bottom:10px;color:#1d1d1f">회차별 배정 현황 (배정완료 ${done.length}명)</div>${roundSummary}`;
+  const oh=incomplete.length?`<div class="onote">⚠️ 일부 미배정 ${incomplete.length}명: ${incomplete.map(r=>r.displayName).join(', ')}</div>`:'';
+  el.innerHTML=`${oh}<div style="font-size:13px;font-weight:600;margin-bottom:10px">회차별 배정 현황 (완료 ${done.length}명)</div>${roundSummary}`;
 }
 
 window.switchTab=function(t){
   curTab=t;
   const tabs=['apply','myschedule','status','admin'];
-  document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach((e,i)=>{
+    e.classList.remove('active');
+    e.style.background='';e.style.color='';
+  });
   document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));
-  document.querySelectorAll('.tab')[tabs.indexOf(t)].classList.add('active');
+  const idx=tabs.indexOf(t);
+  document.querySelectorAll('.tab')[idx].classList.add('active');
+  document.querySelectorAll('.tab')[idx].style.background=T.accent;
+  document.querySelectorAll('.tab')[idx].style.color='#fff';
   document.getElementById('page-'+t).classList.add('active');
-  if(t==='status') renderStatus();
+  if(t==='status')renderStatus();
   if(t==='admin'&&isAdmin){renderStats();renderAssign()}
 };
+
+// 초기 탭 색상 적용
+document.querySelector('.tab.active').style.background=T.accent;
+document.querySelector('.tab.active').style.color='#fff';
 
 renderBooths();
 </script>
