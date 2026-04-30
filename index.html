@@ -313,9 +313,8 @@ const db=getFirestore(initializeApp(cfg));
 const PW="0504";
 
 // URL 파라미터로 학년 결정 (?grade=5 or ?grade=6)
-const urlParams=new URLSearchParams(window.location.search);
-const GRADE=urlParams.get('grade'); // '5' | '6' | null
-const COLLECTION=GRADE?`registrations_${GRADE}`:'registrations';
+const GRADE='6'; // 6학년 고정
+const COLLECTION='registrations_6';
 
 // 학년별 색상 테마
 const THEME={
