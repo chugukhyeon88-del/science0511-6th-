@@ -100,6 +100,8 @@ input[type=text]:focus,input[type=password]:focus,select:focus{outline:none;bord
 .loverlay.show{display:flex}
 .spin{width:36px;height:36px;border:3px solid #e5e5ea;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+.del-stu-btn{font-size:12px;font-weight:600;color:#C0392B;cursor:pointer;border:1px solid #E24B4A;background:#fff;border-radius:6px;padding:2px 7px;transition:all .15s}
+.del-stu-btn:hover{background:#FFE5E5}
 .sdot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px;vertical-align:middle}
 .adm-login{max-width:320px;margin:2rem auto}
 .adm-login h2{font-size:16px;font-weight:600;margin-bottom:1rem;text-align:center}
@@ -158,7 +160,7 @@ input[type=text]:focus,input[type=password]:focus,select:focus{outline:none;bord
         <div>
           <div class="info-grid-label">학년</div>
           <select id="gradeSelect" onchange="updatePreview()" disabled style="background:#f5f5f7;color:#6e6e73">
-            <option value="5">5학년</option>
+            <option value="5">6학년</option>
           </select>
         </div>
         <div>
@@ -278,6 +280,29 @@ input[type=text]:focus,input[type=password]:focus,select:focus{outline:none;bord
           </div>
         </div>
         <hr class="divider">
+        <div class="rset" style="margin-bottom:1rem">
+          <div class="rset-t">🗑️ 학생 신청 취소 (관리자 전용)</div>
+          <div class="rset-d">잘못 신청한 학생을 검색하여 삭제하세요. 삭제 후 복구할 수 없습니다.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr auto auto;gap:8px;margin-bottom:10px">
+            <div>
+              <div class="info-grid-label">반</div>
+              <select id="delClassSel" onchange="renderAdminStudentList()" style="width:100%;padding:8px 10px;font-size:13px;border:1px solid #d1d1d6;border-radius:8px;background:#fff">
+                <option value="">전체</option>
+                <option value="1">1반</option><option value="2">2반</option><option value="3">3반</option>
+                <option value="4">4반</option><option value="5">5반</option><option value="6">6반</option><option value="7">7반</option>
+              </select>
+            </div>
+            <div>
+              <div class="info-grid-label">이름 검색</div>
+              <input type="text" id="delSearchInput" placeholder="이름 입력" oninput="renderAdminStudentList()" style="width:100%;padding:8px 10px;font-size:13px;border:1px solid #d1d1d6;border-radius:8px">
+            </div>
+            <div style="display:flex;align-items:end">
+              <button class="btn" onclick="renderAdminStudentList()" style="padding:8px 14px;font-size:12px">검색</button>
+            </div>
+          </div>
+          <div id="adminStudentList" style="max-height:280px;overflow-y:auto;border:1px solid #e5e5ea;border-radius:10px"></div>
+        </div>
+        <hr class="divider">
         <div class="rset">
           <div class="rset-t">⚠️ 데이터 초기화 (테스트용)</div>
           <div class="rset-d">테스트 완료 후 실제 운영 전에 사용하세요.</div>
@@ -342,7 +367,7 @@ onSnapshot(collection(db,COLLECTION),snap=>{
   document.getElementById('connSt').innerHTML='<span class="sdot" style="background:#34C759"></span>실시간 연결됨';
   renderBooths();
   if(curTab==='status')renderStatus();
-  if(curTab==='admin'&&isAdmin){renderStats();renderAssign()}
+  if(curTab==='admin'&&isAdmin){renderStats();renderAssign();renderAdminStudentList()}
 },()=>{document.getElementById('connSt').innerHTML='<span class="sdot" style="background:#FF3B30"></span>연결 오류'});
 
 const shuffle=a=>[...a].sort(()=>Math.random()-.5);
@@ -562,8 +587,25 @@ function renderStatus(){
     const done=r.scheduleSlots&&r.scheduleSlots.filter(Boolean).length===ASSIGN_COUNT;
     return`<tr><td>${r.class}반 ${r.num}번</td><td>${r.name}</td><td style="line-height:2">${chips}</td><td>${done?`<span class="att a1">완료</span>`:`<span style="font-size:11px;color:#aeaeb2">대기</span>`}</td></tr>`;
   }).join('');
-  el.innerHTML=`<div class="card"><p style="font-size:13px;font-weight:600;margin-bottom:8px">부스별 신청 현황</p><table class="rt"><thead><tr><th></th><th>부스명</th><th>신청 인원</th><th></th></tr></thead><tbody>${bR}</tbody></table></div><div class="card"><p style="font-size:13px;font-weight:600;margin-bottom:8px">전체 신청자 (${arr.length}명)</p><table class="rt"><thead><tr><th>반/번호</th><th>이름</th><th>우선순위 (6개)</th><th>배정</th></tr></thead><tbody>${rR}</tbody></table></div>`;
+  el.innerHTML=`<div class="card"><p style="font-size:13px;font-weight:600;margin-bottom:8px">부스별 신청 현황</p><table class="rt"><thead><tr><th></th><th>부스명</th><th>신청 인원</th><th></th></tr></thead><tbody>${bR}</tbody></table></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><p style="font-size:13px;font-weight:600">전체 신청자 (${arr.length}명)</p><input type="text" id="searchInput" placeholder="이름 또는 반 검색" oninput="filterStudents()" style="width:160px;padding:6px 10px;font-size:12px;border:1px solid #d1d1d6;border-radius:8px"></div><table class="rt"><thead><tr><th>반/번호</th><th>이름</th><th>우선순위 (6개)</th><th>배정</th></tr></thead><tbody id="studentTbody">${rR}</tbody></table></div>`;
 }
+
+window.filterStudents=function(){
+  const q=document.getElementById('searchInput')?.value?.toLowerCase()||'';
+  document.querySelectorAll('#studentTbody tr').forEach(tr=>{
+    tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none';
+  });
+};
+
+window.deleteStudent=async function(docId,displayName){
+  if(!isAdmin){toast('관리자 로그인이 필요해요.',true);return}
+  if(!confirm(`"${displayName}" 학생의 신청을 삭제할까요?\n\n이 작업은 되돌릴 수 없습니다.`))return;
+  sl('삭제 중...');
+  try{
+    await deleteDoc(doc(db,COLLECTION,docId));
+    hl();toast(`${displayName} 신청이 삭제됐습니다.`);renderAdminStudentList();
+  }catch(e){hl();toast('삭제 중 오류가 발생했어요.',true)}
+};
 
 window.runAssign=async function(){
   const entries=Object.entries(regs);
@@ -575,7 +617,7 @@ window.runAssign=async function(){
     const batch=writeBatch(db);
     entries.forEach(([k])=>{batch.update(doc(db,COLLECTION,k),{scheduleSlots:scheduleSlots[k],assignedBooths:result[k]})});
     await batch.commit();
-    hl();renderStats();renderAssign();
+    hl();renderStats();renderAssign();renderAdminStudentList();
     const bad=entries.filter(([k])=>result[k].length<ASSIGN_COUNT).length;
     alert(bad>0?`배정 완료!\n⚠️ ${bad}명은 4개 미만 배정 (정원 초과)`:'모든 학생에게 4개 부스 배정 완료!');
   }catch(e){hl();alert('오류: '+e.message)}
@@ -587,7 +629,7 @@ window.clearAssign=async function(){
   try{
     const batch=writeBatch(db);
     Object.keys(regs).forEach(k=>{batch.update(doc(db,COLLECTION,k),{scheduleSlots:null,assignedBooths:null})});
-    await batch.commit();hl();renderStats();renderAssign();
+    await batch.commit();hl();renderStats();renderAssign();renderAdminStudentList();renderAdminStudentList();
   }catch(e){hl();alert('오류: '+e.message)}
 };
 
@@ -599,7 +641,7 @@ window.clearAll=async function(){
     Object.keys(regs).forEach(k=>{batch.delete(doc(db,COLLECTION,k))});
     await batch.commit();sel=[];
     document.getElementById('selCounter').textContent=`0 / ${MAX_SELECT}개 선택`;
-    renderBooths();renderSel();chkSub();hl();renderStats();renderAssign();alert('삭제됐습니다.');
+    renderBooths();renderSel();chkSub();hl();renderStats();renderAssign();renderAdminStudentList();alert('삭제됐습니다.');
   }catch(e){hl();alert('오류: '+e.message)}
 };
 
@@ -619,6 +661,36 @@ window.dlCSVAssigned=function(){
   const hdr=['반','번호','이름','1회차 09:00~09:20','2회차 09:30~09:50','3회차 10:00~10:20','4회차 10:30~10:50'];
   makeCSV([hdr,...arr.map(r=>[r.class,r.num,r.name,...(r.scheduleSlots||[null,null,null,null]).map(id=>id?`부스${id} ${BOOTHS.find(b=>b.id===id)?.name||''}`:'미배정')])], '과학의날_6학년_배정결과.csv');
 };
+
+window.renderAdminStudentList=function(){
+  const el=document.getElementById('adminStudentList');
+  if(!el)return;
+  const filterCls=document.getElementById('delClassSel')?.value||'';
+  const filterName=(document.getElementById('delSearchInput')?.value||'').trim().toLowerCase();
+  const arr=Object.values(regs).sort((a,b)=>parseInt(a.class)-parseInt(b.class)||parseInt(a.num)-parseInt(b.num));
+  const filtered=arr.filter(r=>{
+    if(filterCls&&r.class!==filterCls)return false;
+    if(filterName&&!r.name.toLowerCase().includes(filterName)&&!r.class.includes(filterName))return false;
+    return true;
+  });
+  if(!filtered.length){el.innerHTML='<p style="font-size:13px;color:#6e6e73;padding:12px 14px">검색 결과가 없습니다.</p>';return}
+  const rows=filtered.map(r=>{
+    const docId=getDocId(r.class,r.num,r.name);
+    const done=r.scheduleSlots&&r.scheduleSlots.filter(Boolean).length===ASSIGN_COUNT;
+    return`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #f0f0f5">
+      <div>
+        <span style="font-size:13px;font-weight:500;color:#1d1d1f">${r.class}반 ${r.num}번 ${r.name}</span>
+        <span style="font-size:11px;color:#6e6e73;margin-left:8px">${r.time} 신청</span>
+        ${done?`<span class="att a1" style="margin-left:4px">배정완료</span>`:`<span style="font-size:10px;color:#aeaeb2;margin-left:4px">미배정</span>`}
+      </div>
+      <button class="del-stu-btn" onclick="deleteStudent('${docId}','${r.class}반 ${r.num}번 ${r.name}')">✕ 삭제</button>
+    </div>`;
+  }).join('');
+  el.innerHTML=`<div style="padding:8px 12px;background:#f5f5f7;font-size:11px;color:#6e6e73;font-weight:500">${filtered.length}명</div>${rows}`;
+};
+
+// 관리자 패널 열릴 때 학생 목록도 갱신
+const _origRenderStats=renderStats;
 
 function renderAssign(){
   const el=document.getElementById('assignResult');if(!el)return;
