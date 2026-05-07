@@ -158,7 +158,7 @@ input[type=text]:focus,input[type=password]:focus,select:focus{outline:none;bord
         <div>
           <div class="info-grid-label">학년</div>
           <select id="gradeSelect" onchange="updatePreview()" disabled style="background:#f5f5f7;color:#6e6e73">
-            <option value="5">6학년</option>
+            <option value="5">5학년</option>
           </select>
         </div>
         <div>
@@ -351,80 +351,70 @@ const shuffle=a=>[...a].sort(()=>Math.random()-.5);
 // 6개 우선순위 중 상위 순위부터 체크하여 4개 배정
 // 정원 초과 시 다음 순위로 이동
 function buildAssignment(entries){
-  // 부스별 배정 카운터 (전체 정원 기준)
-  const assigned={}; // assigned[boothId] = [docId, ...]
-  BOOTHS.forEach(b=>{assigned[b.id]=[]});
+  // ── 회차별 슬롯 정원 관리 ──
+  // slotCap[boothId][round] = 해당 회차 남은 자리
+  // 각 부스는 회차마다 독립적으로 max명 수용
+  const slotCap={};
+  BOOTHS.forEach(b=>{
+    slotCap[b.id]=[0,1,2,3].map(()=>b.max);
+  });
 
-  const result={}; // result[docId] = [boothId, boothId, boothId, boothId]
-  entries.forEach(([k])=>{result[k]=[]});
+  // scheduleSlots[docId] = [boothId|null, boothId|null, boothId|null, boothId|null]
+  const scheduleSlots={};
+  entries.forEach(([k])=>{scheduleSlots[k]=[null,null,null,null]});
 
-  // 셔플로 공정한 순서 결정
   const shuffled=shuffle(entries);
 
-  // 우선순위 1~6순위를 순서대로 처리
-  // 각 라운드에서 해당 순위 부스에 자리 있으면 배정
+  // ── 1단계: 우선순위 순서대로 (회차+부스) 슬롯 배정 ──
   for(let pri=0;pri<MAX_SELECT;pri++){
     shuffled.forEach(([k,r])=>{
-      if(result[k].length>=ASSIGN_COUNT)return; // 이미 4개 배정됨
+      const slots=scheduleSlots[k];
+      if(slots.filter(Boolean).length>=ASSIGN_COUNT)return;
       const boothId=r.priorities?.[pri];
       if(!boothId)return;
-      if(result[k].includes(boothId))return; // 이미 이 부스 배정됨
-      const b=BOOTHS.find(x=>x.id===boothId);
-      if(assigned[boothId].length<b.max){
-        assigned[boothId].push(k);
-        result[k].push(boothId);
-      }
+      if(slots.includes(boothId))return; // 이미 이 부스 배정됨
+      // 학생의 빈 회차 중 이 부스에 자리 있는 회차 찾기
+      const emptyRounds=[0,1,2,3].filter(ri=>slots[ri]===null);
+      const availRounds=shuffle(emptyRounds).filter(ri=>slotCap[boothId][ri]>0);
+      if(!availRounds.length)return;
+      const round=availRounds[0];
+      slots[round]=boothId;
+      slotCap[boothId][round]--;
     });
   }
 
-  // 4개 미만인 학생에게 남은 부스 랜덤 채움 (안전망)
-  for(let pass=0;pass<3;pass++){
+  // ── 2단계: 빈 슬롯 남은 학생에게 랜덤 채움 ──
+  for(let pass=0;pass<5;pass++){
     shuffle(entries.map(([k])=>k)).forEach(k=>{
-      if(result[k].length>=ASSIGN_COUNT)return;
-      const used=result[k];
-      const remaining=shuffle(BOOTHS.filter(b=>!used.includes(b.id)&&assigned[b.id].length<b.max));
-      for(const b of remaining){
-        if(result[k].length>=ASSIGN_COUNT)break;
-        assigned[b.id].push(k);
-        result[k].push(b.id);
+      const slots=scheduleSlots[k];
+      let emptyRounds=[0,1,2,3].filter(ri=>slots[ri]===null);
+      if(!emptyRounds.length)return;
+      const usedBooths=slots.filter(Boolean);
+      const candidates=shuffle(BOOTHS.filter(b=>!usedBooths.includes(b.id)));
+      for(const b of candidates){
+        if(!emptyRounds.length)break;
+        const availRounds=shuffle(emptyRounds.filter(ri=>slotCap[b.id][ri]>0));
+        if(!availRounds.length)continue;
+        const round=availRounds[0];
+        slots[round]=b.id;
+        slotCap[b.id][round]--;
+        emptyRounds=emptyRounds.filter(r=>r!==round);
       }
     });
   }
 
-  // 회차 슬롯 배분: 배정된 4개 부스를 4회차에 1개씩 배치
-  // 각 부스 내에서 학생들을 4회차로 균등 분배
-  const boothRounds={};
-  BOOTHS.forEach(b=>{
-    const students=shuffle(assigned[b.id]);
-    const perRound=Math.ceil(students.length/4);
-    boothRounds[b.id]={};
-    students.forEach((k,i)=>{
-      const round=Math.min(Math.floor(i/Math.max(perRound,1)),3);
-      boothRounds[b.id][k]=round;
-    });
+  // ── 3단계: 그래도 빈 슬롯 → 정원 무시 강제 배정 ──
+  shuffle(entries.map(([k])=>k)).forEach(k=>{
+    const slots=scheduleSlots[k];
+    const emptyRounds=[0,1,2,3].filter(ri=>slots[ri]===null);
+    if(!emptyRounds.length)return;
+    const usedBooths=slots.filter(Boolean);
+    const remaining=shuffle(BOOTHS.filter(b=>!usedBooths.includes(b.id)));
+    emptyRounds.forEach((round,idx)=>{if(remaining[idx])slots[round]=remaining[idx].id});
   });
 
-  // 각 학생의 scheduleSlots 구성
-  const scheduleSlots={};
-  entries.forEach(([k])=>{
-    const slots=[null,null,null,null];
-    const assigned4=result[k];
-    // 각 부스의 회차를 충돌 없이 배치
-    const usedRounds=new Set();
-    assigned4.forEach(boothId=>{
-      let round=boothRounds[boothId]?.[k]??0;
-      // 충돌 시 빈 회차 찾기
-      if(usedRounds.has(round)){
-        for(let r=0;r<4;r++){if(!usedRounds.has(r)){round=r;break}}
-      }
-      if(!usedRounds.has(round)){
-        slots[round]=boothId;
-        usedRounds.add(round);
-      }
-    });
-    scheduleSlots[k]=slots;
-  });
-
+  const result={};
+  entries.forEach(([k])=>{result[k]=scheduleSlots[k].filter(Boolean)});
   return{result,scheduleSlots};
 }
 
